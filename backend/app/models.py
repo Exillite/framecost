@@ -38,3 +38,8 @@ class Template(Document):
     shop = ReferenceField(Shop, required=True)
     producsts = ListField(ReferenceField(Product))
     
+
+class Order(Document):
+    shop = ReferenceField(Shop, required=True)
+    products = StringField(required=True) # JSON {products: [{product: id, params: int, [a: int, b: int]}, ...]}
+    price = FloatField(required=True)
