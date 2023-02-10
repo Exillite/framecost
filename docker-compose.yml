@@ -36,6 +36,18 @@ services:
       volumes:
         - ./data/db:/data/db
 
+  vue:
+    container_name: "vue"
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - custom
+    depends_on:
+      - web
+
 networks:
   custom:
     driver: bridge
