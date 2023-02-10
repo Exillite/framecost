@@ -205,4 +205,3 @@ def get_order_by_id(id: str) -> Order:
 def get_orders_by_shop(shop: Shop) -> list:
     return list(Order.objects(shop=shop))
     
-    

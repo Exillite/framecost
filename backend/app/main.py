@@ -17,6 +17,10 @@ app = FastAPI()
 async def root():
     return {"message": "Hello, World!"}
 
+@app.get("/api", description="Root endpoint")
+async def roott():
+    return {"message": "Hello, World!"}
+
 ApiPrefix = "/api/v1"
 
 @app.post(f"{ApiPrefix}/register", description="Register endpoint")
