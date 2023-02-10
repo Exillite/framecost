@@ -115,6 +115,45 @@
     - 500: internal server error
 
 
+### Get shop
+- method: GET
+- path: /api/v1/shop/{shop_slug}
+- response body:
+```json
+{
+    "status": "int",
+    "shop": {
+        "id": "string",
+        "title": "string",
+    }
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
+### Get user shops
+- method: GET
+- path: /api/v1/user/shops
+- response body:
+```json
+{
+    "status": "int",
+    "shops": [
+        {
+            "id": "string",
+            "title": "string",
+        }
+    ]
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
 ### Create new product
 - method: POST
 - path: /api/v1/product
@@ -152,6 +191,7 @@
             "title": "string",
             "category": "string",
             "price": "float",
+            "slug": "string",
             "shop_id": "string",
         }
     ]
@@ -175,6 +215,7 @@
         "title": "string",
         "category": "string",
         "price": "float",
+        "slug": "string",
         "shop_id": "string",
     }
 }
@@ -214,7 +255,6 @@
     "item": {
         "id": "string",
         "product_id": "string",
-        "user_id": "string",
         "quantity": "int",
     }
 }
@@ -268,6 +308,28 @@
     - 500: internal server error
 
 
+### Get all items of product
+- method: GET
+- path: /api/v1/product/{product_slug}/items
+- response body:
+```json
+{
+    "status": "int",
+    "items": [
+        {
+            "id": "string",
+            "product_id": "string",
+            "params": "string", // {cnt: 2, a: 1, b: 2}
+        }
+    ]
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
 ### Create new template
 - method: POST
 - path: /api/v1/template
@@ -276,7 +338,7 @@
 {
     "title": "string",
     "shop_id": "string",
-    "products": "string", // {cnt: 2, products: [{"product_id": "string", cnt: 2, a: "int", b: "int"}, {"product_id": "string", cnt: 1, a: "int"}]}
+    "products": "string", // { products: [{ "product_id": "string" }, { "product_id": "string" }]}
 }
 ```
 - response body:
@@ -303,7 +365,8 @@
             "id": "string",
             "title": "string",
             "shop_id": "string",
-            "products": "string", // {cnt: 2, products: [{"product_id": "string", cnt: 2, [a: int, b: int]}, {"product_id": "string", cnt: 1, [a: int]}
+            "slug": "string",
+            "products": "string", // { products: [{ "product_id": "string" }, { "product_id": "string" }]}
         }
     ]
 }
@@ -325,7 +388,8 @@
         "id": "string",
         "title": "string",
         "shop_id": "string",
-        "products": "string", // {cnt: 2, products: [{"product_id": "string", cnt: 2, [a: int, b: int]}, {"product_id": "string", cnt: 1, [a: int]}
+        "slug": "string",
+        "products": "string", // { products: [{ "product_id": "string" }, { "product_id": "string" }]}
     }
 }
 ```
@@ -342,13 +406,35 @@
 ```json
 {
     "shop_id": "string",
-    "products": "string", // {cnt: 2, products: [{"product_id": "string", cnt: 2, a: "int", b: "int"}, {"product_id": "string", cnt: 1, a: "int"}]}
+    "items": "string", // {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
 }
 ```
 - response body:
 ```json
 {
     "status": "int",
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
+### Get order
+- method: GET
+- path: /api/v1/order/{order_id}
+- response body:
+```json
+{
+    "status": "int",
+    "order": {
+        "id": "string",
+        "shop_id": "string",
+        "price": "float",
+        "products": "string", // {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
+        "created_at": "datetime",
+    }
 }
 ```
 - status codes:
@@ -368,8 +454,9 @@
         {
             "id": "string",
             "shop_id": "string",
-            "products": "string", // {cnt: 2, products: [{"product_id": "string", cnt: 2, [a: int, b: int]}, {"product_id": "string", cnt: 1, [a: int]}
-            created_at: "datetime",
+            "price": "float",
+            "products": "string", // {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
+            "created_at": "datetime",
         }
     ]
 }

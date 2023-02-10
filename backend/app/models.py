@@ -28,6 +28,15 @@ class Shop(Document):
     admins = ListField(ReferenceField(User))
     slug = StringField(required=True)
     is_active = BooleanField(default=True)
+    
+    def json_convert(self):
+        return {
+            "id": str(self.id),
+            "title": self.title,
+            "owner": self.owner.json_convert(),
+            "admins": [admin.json_convert() for admin in self.admins],
+            
+        }
 
 
 class Product(Document):
@@ -54,7 +63,6 @@ class Template(Document):
 
 class Order(Document):
     shop = ReferenceField(Shop, required=True)
-    products = StringField(required=True) # JSON {products: [{product: id, params: int, [a: int, b: int]}, ...]}
+    items = StringField(required=True) # JSON {items: [{item: id, params_cnt: int, a: int, b: int}, ...]}
     price = FloatField(required=True)
-    slug = StringField(required=True)
     created_at = DateTimeField(required=True)
