@@ -2,8 +2,11 @@ from fastapi import FastAPI, Request
 import uvicorn
 from mongoengine import connect
 from envparse import Env
+from fastapi.middleware.cors import CORSMiddleware
 
 from models import *
+from shemas import *
+
 import crud
 
 
@@ -12,6 +15,16 @@ MONGODB_URL = env.str("MONGODB_URL", default="mongodb://localhost:27017/test_dat
 
 app = FastAPI()
 
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/", description="Root endpoint")
 async def root():
@@ -24,9 +37,9 @@ async def roott():
 ApiPrefix = "/api/v1"
 
 @app.post(f"{ApiPrefix}/register", description="Register endpoint")
-async def register(name: str, surname: str, login: str, email: str, password: str):
+async def register(user: CreateUser):
     try:
-        new_user = crud.regidtration(name, surname, login, email, password)
+        new_user = crud.regidtration(user.name, user.surname, user.login, user.email, user.password)
         if new_user:
             return {"status": 200}
         else:
@@ -35,9 +48,9 @@ async def register(name: str, surname: str, login: str, email: str, password: st
         return {"status": 500}
     
 @app.post(f"{ApiPrefix}/login", description="Login endpoint")
-async def login(email: str, password: str):
+async def login(login_user: LoginUser):
     try:
-        user = crud.login(email, password)
+        user = crud.login(login_user.email, login_user.password)
         if user:
             return {"status": 200, "tocken": crud.get_tocken(user)}
         else:
@@ -47,9 +60,9 @@ async def login(email: str, password: str):
 
 
 @app.get(f"{ApiPrefix}/user", description="Get user endpoint")
-async def get_user(tocken: str):
+async def get_user(get_user: GetUser):
     try:
-        user = User.objects(tocken=tocken).first()
+        user = User.objects(login=get_user.login).first()
         if user:
             return {"status": 200, "user": user.json_convert()}
         else:
@@ -59,9 +72,9 @@ async def get_user(tocken: str):
     
 
 @app.put(ApiPrefix + "/user/{login}", description="Update user endpoint")
-async def update_user(name: str, surname: str, login: str):
+async def update_user(update_user: UpdateUser):
     try:
-        user = crud.update_user(name, surname, login)
+        user = crud.update_user(update_user.name, update_user.surname, update_user.login)
         if user:
             return {"status": 200}
         else:
