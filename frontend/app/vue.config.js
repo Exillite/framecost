@@ -3,10 +3,13 @@ module.exports = defineConfig({
     transpileDependencies: true,
     devServer: { allowedHosts: 'all', },
     pluginOptions: {
-        moment: {
-            locales: [
-                ''
-            ]
-        }
+      moment: {
+        locales: [
+          ''
+        ]
+      },
+      vuetify: {
+			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
+		}
     }
 })

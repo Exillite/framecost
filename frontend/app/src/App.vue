@@ -1,24 +1,18 @@
 <template>
-    <router-view />
+  <v-app>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import api from '@/api.js'
 
 export default {
-    data() {
-        return {
-            message: null,
-        }
-    },
-    mounted() {
-    },
+  name: 'App',
+
+  data: () => ({
+    //
+  }),
 }
-
-
-
 </script>
-
-<style>
-
-</style>
