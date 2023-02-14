@@ -13,6 +13,12 @@ const routes = [{
         component: () =>
             import ('@/pages/Login.vue'),
     },
+    {
+        path: '/registeration',
+        name: 'Registeration',
+        component: () =>
+            import ('@/pages/Registeration.vue'),
+    },
 ]
 
 const router = new createRouter({

@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 
+class Test(BaseModel):
+    token: str
+
 class CreateUser(BaseModel):
     name: str
     surname: str
@@ -12,9 +15,11 @@ class LoginUser(BaseModel):
     password: str
 
 class GetUser(BaseModel):
+    token: str
     login: str
 
 class UpdateUser(BaseModel):
+    token: str
     name: str
     surname: str
     login: str

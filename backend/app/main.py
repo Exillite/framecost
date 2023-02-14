@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Header, HTTPException, Response
 import uvicorn
 from mongoengine import connect
 from envparse import Env
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Union
 
 from models import *
 from shemas import *
@@ -31,8 +32,15 @@ async def root():
     return {"message": "Hello, World!"}
 
 @app.get("/api", description="Root endpoint")
-async def roott():
-    return {"message": "Hello, World!"}
+async def roott(token: str = None):
+    
+    return {"message": f"Hlo,  = , {token}"}
+
+@app.post("/api", description="hz Root endpoint")
+async def roott(token: str = None):
+    
+    return {"message": f"Hlo,  = , {token}"}
+
 
 ApiPrefix = "/api/v1"
 
@@ -69,7 +77,7 @@ async def get_user(get_user: GetUser):
             return {"status": 400}
     except Exception as e:
         return {"status": 500}
-    
+
 
 @app.put(ApiPrefix + "/user/{login}", description="Update user endpoint")
 async def update_user(update_user: UpdateUser):
@@ -86,4 +94,4 @@ async def update_user(update_user: UpdateUser):
 connect(host=MONGODB_URL)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, debug=True)

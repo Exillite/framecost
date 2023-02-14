@@ -7,12 +7,16 @@
 </template>
 
 <script>
+  import { useLocale } from 'vuetify'
 
-export default {
-  name: 'App',
+  export default {
+    setup () {
+      const { current } = useLocale()
 
-  data: () => ({
-    //
-  }),
-}
+      return {
+        changeLocale: locale => current.value = locale
+      }
+    }
+  }
+
 </script>

@@ -248,7 +248,7 @@
 ### Get item
 - method: GET
 - post: /api/v1/item/{item_id}
-- request body:
+- response body:
 ```json
 {
     "status": "int",

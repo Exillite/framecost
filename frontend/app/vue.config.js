@@ -8,8 +8,15 @@ module.exports = defineConfig({
           ''
         ]
       },
-      vuetify: {
-			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
-		}
+      vuetify: {},
+      i18n: {
+        locale: 'ru',
+        fallbackLocale: 'ru',
+        localeDir: 'locales',
+        enableLegacy: false,
+        runtimeOnly: false,
+        compositionOnly: false,
+        fullInstall: true
+      }
     }
 })
