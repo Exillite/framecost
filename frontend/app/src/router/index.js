@@ -14,10 +14,10 @@ const routes = [{
             import ('@/pages/Login.vue'),
     },
     {
-        path: '/registeration',
-        name: 'Registeration',
+        path: '/registration',
+        name: 'Registration',
         component: () =>
-            import ('@/pages/Registeration.vue'),
+            import ('@/pages/Registration.vue'),
     },
 ]
 

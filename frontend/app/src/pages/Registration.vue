@@ -17,20 +17,19 @@
                 dismissible
             >
                 <v-alert-title>Ошибка</v-alert-title>
-                <v-alert-description>Неверный логин или пароль</v-alert-description>
+                <v-alert-description>Данные не корректны</v-alert-description>
             </v-alert>
             <h2>Регистрация</h2>
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submit" @input="onFormEdit">
             <v-text-field
-                v-model="name"
+                v-model="form.name"
                 label="Имя"
                 type="text"
-                required
                 :rules="nameRules"
                 autocomplete="given-name"
             ></v-text-field>
             <v-text-field
-                v-model="surname"
+                v-model="form.surname"
                 label="Фамилия"
                 type="text"
                 required
@@ -38,7 +37,7 @@
                 autocomplete="family-name"
             ></v-text-field>
             <v-text-field
-                v-model="login"
+                v-model="form.login"
                 label="Логин"
                 type="text"
                 required
@@ -46,7 +45,7 @@
                 autocomplete="nickname"
             ></v-text-field>
             <v-text-field
-                v-model="email"
+                v-model="form.email"
                 label="E-mail"
                 type="email"
                 required
@@ -54,7 +53,7 @@
                 autocomplete="email"
             ></v-text-field>
             <v-text-field
-                v-model="password"
+                v-model="form.password"
                 label="Пароль"
                 type="password"
                 required
@@ -62,17 +61,16 @@
                 autocomplete="current-password"
             ></v-text-field>
             <v-text-field
-                v-model="repit_password"
+                v-model="form.repit_password"
                 label="Повторите пароль"
                 type="password"
                 required
                 :rules="repit_passwordRules"
                 autocomplete="current-password"
             ></v-text-field>
-            <v-btn type="submit" color="primary">Войти</v-btn>
+            <v-btn type="submit" color="primary" :disabled="!isFormValid">Зарегистрироваться</v-btn>
         </form>
         </v-container>
-
       </v-main>
       
     </v-app>
@@ -85,25 +83,35 @@
     export default {
         data() {
             return {
-                name: '',
-                surname: '',
-                login: '',
-                email: '',
-                password: '',
-                repit_password: '',
+                form: {
+                    name: '',
+                    surname: '',
+                    login: '',
+                    email: '',
+                    password: '',
+                    repit_password: '',
+                },
                 error: false,
+                isFormValid: false,
 
                 nameRules: [
-                    v => !!v || 'Введите имя',
-                    v => (v && v.length < 3) || 'Имя должно быть более длинным',
+                    value => {
+                        if (!value) {
+                            return 'Введите имя'
+                        } else if (value?.length < 3) {
+                            return 'Имя должно быть более длинным'
+                        } else {
+                            return true
+                        }
+                    }
                 ],
                 surnameRules: [
                     v => !!v || 'Введите фамилию',
-                    v => (v && v.length < 3) || 'Фамилия должна быть более длинной',
+                    v => (v && v.length > 3) || 'Фамилия должна быть более длинной',
                 ],
                 loginRules: [
                     v => !!v || 'Введите логин',
-                    v => (v && v.length < 3) || 'Логин должен быть более длинным',
+                    v => (v && v.length > 3) || 'Логин должен быть более длинным',
                 ],
                 emailRules: [
                     v => !!v || 'Введите E-mail',
@@ -111,21 +119,25 @@
                 ],
                 passwordRules: [
                     v => !!v || 'Введите пароль',
-                    v => (v && v.length < 6) || 'Пароль должен быть более длинным',
+                    v => (v && v.length > 6) || 'Пароль должен быть более длинным',
                 ],
                 repit_passwordRules: [
                     v => !!v || 'Введите пароль',
-                    v => (v && v.length < 6) || 'Пароль должен быть более длинным',
-                    v => (v && v === this.password) || 'Пароли не совпадают',
+                    v => (v && v.length > 6) || 'Пароль должен быть более длинным',
+                    v => (v && v === this.form.password) || 'Пароли не совпадают',
                 ],
             }
         },
         methods: {
+            onFormEdit() {
+                // is form valid
+                this.isFormValid = this.form.name && this.form.surname && this.form.login && this.form.email && this.form.password && this.form.repit_password
+            },
             submit() {
-                api.register(this.name, this.surname, this.login, this.email, this.password)
+                api.register(this.form.name, this.form.surname, this.form.login, this.form.email, this.form.password)
                     .then(response => {
-                        if (response.status === 200) {
-                            this.$router.push({name: 'Home'})
+                        if (response.data.status == 200) {
+                            this.$router.push({name: 'Main'})
                         } else {
                             this.error = true
                         }
@@ -134,7 +146,7 @@
                         console.log(error)
                         this.error = true
                     })
-            }
+            },
         }
     }
 </script>

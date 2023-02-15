@@ -16,7 +16,7 @@
                 dismissible
             >
                 <v-alert-title>Ошибка</v-alert-title>
-                <v-alert-description>Неверный логин или пароль</v-alert-description>
+                <v-alert-description>Не верный логин или пароль</v-alert-description>
             </v-alert>
             <h2>Вход</h2>
             <form @submit.prevent="submit">
