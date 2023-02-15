@@ -1,7 +1,6 @@
 <template>
     <v-app>
         <v-app-bar app>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
             <v-toolbar-title>ЛОГО</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn 
@@ -20,7 +19,7 @@
                 <v-alert-description>Данные не корректны</v-alert-description>
             </v-alert>
             <h2>Регистрация</h2>
-            <form @submit.prevent="submit" @input="onFormEdit">
+            <v-form @submit.prevent="submit" v-model="isFormValid">
             <v-text-field
                 v-model="form.name"
                 label="Имя"
@@ -68,8 +67,8 @@
                 :rules="repit_passwordRules"
                 autocomplete="current-password"
             ></v-text-field>
-            <v-btn type="submit" color="primary" :disabled="!isFormValid">Зарегистрироваться</v-btn>
-        </form>
+            <v-btn type="submit" color="primary" :disabled="!isFormValid" >Зарегистрироваться</v-btn>
+        </v-form>
         </v-container>
       </v-main>
       
@@ -78,7 +77,6 @@
 
 <script>
     import api from '@/api'
-    import cookie from '@/cookie'
 
     export default {
         data() {
@@ -129,10 +127,6 @@
             }
         },
         methods: {
-            onFormEdit() {
-                // is form valid
-                this.isFormValid = this.form.name && this.form.surname && this.form.login && this.form.email && this.form.password && this.form.repit_password
-            },
             submit() {
                 api.register(this.form.name, this.form.surname, this.form.login, this.form.email, this.form.password)
                     .then(response => {

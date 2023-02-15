@@ -1,11 +1,10 @@
 <template>
     <v-app>
         <v-app-bar app>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
             <v-toolbar-title>ЛОГО</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn 
-            @click="$router.push({name: 'Registeration'})"
+            @click="$router.push({name: 'Registration'})"
             text>Зарегистрироваться</v-btn>
         </v-app-bar>
       <v-main>
