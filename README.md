@@ -1,3 +1,31 @@
+# **FrameCost**
+---
+# Pages
+
+### Home
+list of all shops, wich user can administrate
+
+### Shop
+tabs: products, templtates, orders, settings
+- products - list of all products from shop, add new product or item of product
+- templates - list of all templates from shop
+- orders - list of all orders from shop
+- settings - shop settings (change title, add/remove admins, etc)
+
+### Template
+see/edit template
+
+### Order
+see/edit order
+
+### Login
+login page
+
+### Registeration
+registeration page
+
+---
+
 # API DOCUMENTATION
 
 ## Methods
