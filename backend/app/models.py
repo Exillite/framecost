@@ -35,7 +35,6 @@ class Shop(Document):
             "title": self.title,
             "owner": self.owner.json_convert(),
             "admins": [admin.json_convert() for admin in self.admins],
-            
         }
 
 

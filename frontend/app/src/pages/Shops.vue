@@ -24,10 +24,10 @@
                                 <div class="text-h6 mb-1">
                                 {{ shop.title }}
                                 </div>
-                                <div class="text-caption">{{ shop.owner }}</div>
+                                <div class="text-caption">{{ shop.owner.name }} {{ shop.owner.surname }}</div>
                             </div>
                             <div class="text--primary">
-    
+                                Продуктов: {{ shop.products_cnt }}  Шаблонов: {{ shop.templates_cnt }}
                             </div>
                             </v-card-item>
                             
@@ -48,20 +48,35 @@
 </template>
 
 <script>
+
+    import api from '@/api'
+
     export default {
         data () {
             return {
-                shops: [
-                    {
-                        id: "234789234",
-                        title: 'Mokos',
-                        owner: 'Peta Petrov',
-                        products_cnt: 34,
-                        templates_cnt: 8,
-                    },
-                ],
+                shops: [],
+                // shops: [
+                //     {
+                //         id: "234789234",
+                //         title: 'Mokos',
+                //         owner: 'Peta Petrov',
+                //         products_cnt: 34,
+                //         templates_cnt: 8,
+                //     },
+                // ],
             }
         },
+        mounted() {
+            api.get_all_users_shops().then((response) => {
+                if (response.data.status == 200) {
+                    this.shops = response.data.shops;
+                }
+                console.log(this.shops);
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
     }
 </script>
 

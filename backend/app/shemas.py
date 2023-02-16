@@ -19,7 +19,19 @@ class GetUser(BaseModel):
     login: str
 
 class UpdateUser(BaseModel):
-    token: str
     name: str
     surname: str
-    login: str
+    
+
+class CreateShop(BaseModel):
+    title: str
+    
+    
+class CreateProduct(BaseModel):
+    title: str
+    category: str
+    price: float
+    shop_id: str
+
+
+

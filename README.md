@@ -70,6 +70,7 @@ registeration page
 {
     "status": "int",
     "tocken": "string", // if status == 200
+    "user_id": "string",
 }
 ```
 - status codes:

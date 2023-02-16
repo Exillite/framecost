@@ -60,9 +60,10 @@
                     // console.log(response);
                     if (response.data.status == 200) {
                         const st = JSON.stringify(response.data.tocken)
-
+                        const uid = JSON.stringify(response.data.user_id)
                         // set cookie token on month
                         cookie.setCookie('token', st, {'max-age': 2592000});
+                        cookie.setCookie('user_id', uid, {'max-age': 2592000});
                         this.$router.push({name: 'Main'});
 
                     } else {
