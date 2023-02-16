@@ -33,5 +33,26 @@ class CreateProduct(BaseModel):
     price: float
     shop_id: str
 
+class UpdateProduct(BaseModel):
+    title: str
+    category: str
+    price: float
 
 
+class CreateItem(BaseModel):
+    product_id: str
+    params: str
+    
+class UpdateItem(BaseModel):
+    params: str
+    
+
+class CreateTemplate(BaseModel):
+    title: str
+    shop_id: str
+    products: str
+    
+
+class CreateOrder(BaseModel):
+    shop_id: str
+    items: str
