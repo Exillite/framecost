@@ -97,6 +97,31 @@ def update_product(title: str, category: str, price: float, slug: str) -> Produc
         return None
 
 
+def params_pars(params: str) -> dict:
+    params = params.split(', ')
+    cnt = int(params[0].split(": ")[1])
+    a, b = None, None
+    if cnt >= 1:
+        a = float(params[1].split(": ")[1])
+    if cnt == 2:
+        b = float(params[2].split(": ")[1])
+    
+    if cnt == 1:
+        return {
+            'cnt': cnt,
+            'a': a,
+        }
+    elif cnt == 2:
+        return {
+            'cnt': cnt,
+            'a': a,
+            'b': b,
+        }
+    else:
+        return {
+            'cnt': cnt,
+        }
+
 def create_item(product: Product, parms_cnt: int, params: list) -> Item:
     item = Item(product=product, parms_cnt=parms_cnt)
     if parms_cnt == 1:

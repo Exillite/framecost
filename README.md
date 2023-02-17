@@ -284,7 +284,7 @@ registeration page
     "item": {
         "id": "string",
         "product_id": "string",
-        "quantity": "int",
+        "params": "string", // {cnt: 2, a: 1, b: 2}
     }
 }
 ```

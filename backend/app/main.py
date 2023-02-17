@@ -232,7 +232,7 @@ async def get_product(product_slug: str, token: str = None, user_id: str = None)
     
     
 @app.put(ApiPrefix + "/product/{product_slug}")
-async def update_product(edit_prd: UpdateProduct, product_slug, token: str = None, user_id: str = None):
+async def update_product(edit_prd: UpdateProduct, product_slug: str, token: str = None, user_id: str = None):
     user = is_login(token, user_id)
     if not user:
         return {"status": 400}
@@ -249,6 +249,110 @@ async def update_product(edit_prd: UpdateProduct, product_slug, token: str = Non
             return {"status": 200}
         else:
             return {"status": 400}
+    except Exception as e:
+        return {"status": 500}
+    
+    
+@app.get(ApiPrefix + "/item/{item_id}")
+async def get_item(item_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    item = crud.get_item_by_id(item_id)
+    prd = item.product
+    shop = prd.shop
+    if not item:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        return {"status": 200, "item": item.json_convert()}
+    except Exception as e:
+        return {"status": 500}
+
+
+@app.post(ApiPrefix + "/item")
+async def create_item(new_item: CreateItem, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    prd = crud.get_product_by_id(new_item.product_id)
+    shop = prd.shop
+    if not prd:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        prms = crud.params_pars(new_item.params)
+        lst = []
+        if prms['cnt'] >= 1:
+            lst.append(prms['a'])
+        if prms == 2:
+            lst.append(prms['b'])
+                
+        item = crud.create_item(prd, prms['cnt'], lst)
+        if not item:
+            return {"ststus": 400}
+        
+        return {"status": 200}
+    except Exception as e:
+        return {"status": 500}
+
+
+@app.put(ApiPrefix + "/item/{item_id}")
+async def update_item(edit_itm: UpdateItem, item_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    item = crud.get_item_by_id(item_id)
+    prd = item.product
+    shop = prd.shop
+    if not item:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        prms = crud.params_pars(edit_itm.params)
+        lst = []
+        if prms['cnt'] >= 1:
+            lst.append(prms['a'])
+        if prms == 2:
+            lst.append(prms['b'])
+
+        updd_item = crud.update_item(prms['cnt'], lst, str(item.pk))
+        if not updd_item:
+            return {"status": 400}
+        else:
+            return {"status": 200}
+        
+    except Exception as e:
+        return {"status":500}
+
+
+@app.get(ApiPrefix + "/product/{product_slug}/items")
+async def get_all_products_items(product_slug: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    prd = crud.get_product(product_slug)
+    shop = prd.shop
+    if not prd:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        items = crud.get_items_by_product(prd)
+        if not items:
+            return {"status": 400}
+        items_lst = []
+        for itm in items:
+            items_lst.append(itm.json_convert)
+        
+        return {"status": 200, "items": items_lst}
     except Exception as e:
         return {"status": 500}
 

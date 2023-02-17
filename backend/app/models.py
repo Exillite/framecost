@@ -51,7 +51,7 @@ class Product(Document):
             "category": self.category,
             "price": self.price,
             "slug": self.slug,
-            "shop_id": self.shop.pk
+            "shop_id": self.shop.pk,
         }
 
 
@@ -60,6 +60,20 @@ class Item(Document):
     parms_cnt = IntField(required=True) # 0 | 1 | 2
     a = FloatField()
     b = FloatField()
+    
+    def json_convert(self):
+        params = {}
+        if self.parms_cnt == 0:
+            params = {"cnt": 0}
+        if self.parms_cnt == 1:
+            params = {"cnt": 1, "a": self.a}
+        if self.parms_cnt == 2:
+            params = {"cnt": 2, "a": self.a, "b": self.b}
+        return {
+            "id": str(self.pk),
+            "product_id": self.product.pk,
+            "params": str(params),
+        }
 
 
 class Template(Document):
