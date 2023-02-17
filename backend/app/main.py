@@ -141,7 +141,7 @@ async def get_shop(shop_slug: str, token: str = None, user_id: str = None):
         shop = Shop.objects(slug=shop_slug).first()
         if not shop:
             return {"status": 400}
-        if permision_check(user, shop):
+        if not permision_check(user, shop):
             return {"status": 400}
         
         return {"status": 200, "shop": shop.json_convert()}
@@ -150,7 +150,7 @@ async def get_shop(shop_slug: str, token: str = None, user_id: str = None):
 
 
 @app.get(ApiPrefix + "/user/shops", description="Get all user shops endpoint")
-async def get_shop(token: str = None, user_id: str = None):
+async def get_users_shops(token: str = None, user_id: str = None):
     user = is_login(token, user_id)
     if not user:
         return {"status": 400}
@@ -170,6 +170,86 @@ async def get_shop(token: str = None, user_id: str = None):
         return {"status": 200, "shops": shops_list}
     except Exception as e:
         print(e)
+        return {"status": 500}
+
+
+@app.post(ApiPrefix + "/product")
+async def create_product(prod: CreateProduct, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = Shop.objects(pk=prod.shop_id).first()
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        product = crud.create_product(prod.title, prod.category, prod.price, shop)
+        if product:
+            return {"status": 200}
+        else:
+            return {"status": 400}
+    except Exception as e:
+        return {"status": 500}
+
+
+@app.get(ApiPrefix + "/shop/{shop_slug}/products")
+async def get_shops_products(shop_slug: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = Shop.objects(slug=shop_slug).first()
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        prods = crud.get_products_by_shop(shop)
+        prods_lst = []
+        
+        for p in prods:
+            prods_lst.append(p.json_convert())
+        
+        return {"status": 200, "products": prods_lst}
+    except Exception as e:
+        return {"status": 500}
+
+
+@app.get(ApiPrefix + "/product/{product_slug}")
+async def get_product(product_slug: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    prd = crud.get_product(product_slug)
+    shop = prd.shop
+    if not prd:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+
+    try:
+        return {"status": 200, "product": prd.json_convert()}
+    except Exception as e:
+        return {"status": 500}
+    
+    
+@app.put(ApiPrefix + "/product/{product_slug}")
+async def update_product(edit_prd: UpdateProduct, product_slug, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    prd = crud.get_product(product_slug)
+    shop = prd.shop
+    if not prd:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+
+    try:
+        updd_prd = crud.update_product(edit_prd.title, edit_prd.category, edit_prd.price, product_slug)
+        if updd_prd:
+            return {"status": 200}
+        else:
+            return {"status": 400}
+    except Exception as e:
         return {"status": 500}
 
 
