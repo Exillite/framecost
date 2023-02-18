@@ -367,7 +367,7 @@ registeration page
 {
     "title": "string",
     "shop_id": "string",
-    "products": "string", // { products: [{ "product_id": "string" }, { "product_id": "string" }]}
+    "products": "string", // { "products": [{ "product_id": "string" }, { "product_id": "string" }]}
 }
 ```
 - response body:
@@ -394,8 +394,7 @@ registeration page
             "id": "string",
             "title": "string",
             "shop_id": "string",
-            "slug": "string",
-            "products": "string", // { products: [{ "product_id": "string" }, { "product_id": "string" }]}
+            "products": "string", // { "products": [{ "product_id": "string" }, { "product_id": "string" }]}
         }
     ]
 }
@@ -417,8 +416,7 @@ registeration page
         "id": "string",
         "title": "string",
         "shop_id": "string",
-        "slug": "string",
-        "products": "string", // { products: [{ "product_id": "string" }, { "product_id": "string" }]}
+        "products": "string", // { "products": [{ "product_id": "string" }, { "product_id": "string" }]}
     }
 }
 ```

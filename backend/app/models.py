@@ -80,8 +80,13 @@ class Template(Document):
     title = StringField(required=True)
     shop = ReferenceField(Shop, required=True)
     products = ListField(ReferenceField(Product))
-    slug = StringField(required=True)
-    
+
+    def json_convert(self):
+        return {
+            "title": self.title,
+            "shop_id": self.shop.pk,
+            "products": [products.json_convert() for products in self.products],
+        }
 
 class Order(Document):
     shop = ReferenceField(Shop, required=True)

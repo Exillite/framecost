@@ -153,12 +153,18 @@ def update_item(parms_cnt: int, params: list, id: str) -> Item:
         return None
 
 
-def create_template(title: str, shop: Shop, products: list) -> Template:
-    slug = slugify(title)
-    while Template.objects(slug=slug).first():
-        slug += "1"
-    
-    template = Template(title=title, shop=shop, products=products, slug=slug)
+def products_pars(products: str) -> list:
+    data = json.loads(products)
+    prod_lst = []
+    for el in data['products']:
+        prd = get_product_by_id(el['product_id'])
+        prod_lst.append(prd)
+        
+    return prod_lst
+
+
+def create_template(title: str, shop: Shop, products: list) -> Template:    
+    template = Template(title=title, shop=shop, products=products)
     template.save()
     return template
 

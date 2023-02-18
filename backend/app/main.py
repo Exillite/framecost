@@ -251,8 +251,8 @@ async def update_product(edit_prd: UpdateProduct, product_slug: str, token: str 
             return {"status": 400}
     except Exception as e:
         return {"status": 500}
-    
-    
+
+
 @app.get(ApiPrefix + "/item/{item_id}")
 async def get_item(item_id: str, token: str = None, user_id: str = None):
     user = is_login(token, user_id)
@@ -353,6 +353,69 @@ async def get_all_products_items(product_slug: str, token: str = None, user_id: 
             items_lst.append(itm.json_convert)
         
         return {"status": 200, "items": items_lst}
+    except Exception as e:
+        return {"status": 500}
+    
+
+@app.post(ApiPrefix + "/template")
+async def create_template(new_teplate: CreateTemplate, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = crud.get_shop_by_id(new_teplate.shop_id)
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        tmpl = crud.create_template(new_teplate.title, crud.get_shop_by_id(new_teplate.shop_id), crud.products_pars(new_teplate.products))
+        if not tmpl:
+            return {"status": 400}
+        return {"status": 200}
+    except Exception as e:
+        return {"status": 500}
+    
+
+@app.get(ApiPrefix + "/shop/{shop_slug}/templates")
+async def get_shops_templates(shop_slug: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = crud.get_shop(shop_slug)
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        templs = crud.get_templates_by_shop(shop)
+        templs_lst = []
+        for tmpl in templs:
+            templs_lst.append(tmpl.json_convert())
+            
+        if not templs_lst:
+            return {"status": 400}
+        else:
+            return {"status": 200, "templates": templs_lst}
+    except Exception as e:
+        return {"status": 500}
+    
+
+@app.get(ApiPrefix + "/template/{template_id}")
+async def get_template(template_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    tmpl = crud.get_template_by_id(template_id)
+    shop = tmpl.shop
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        return {"status": 200, "template": tmpl.json_convert()}
     except Exception as e:
         return {"status": 500}
 
