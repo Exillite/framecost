@@ -1,6 +1,7 @@
 from mongoengine import Document
 from mongoengine.fields import StringField, IntField, ListField, BooleanField, ReferenceField, URLField, DateTimeField, FloatField, DateField
 
+import crud
 
 class User(Document):
     password = StringField(required=True)
@@ -83,13 +84,24 @@ class Template(Document):
 
     def json_convert(self):
         return {
+            "id": str(self.pk),
             "title": self.title,
             "shop_id": self.shop.pk,
             "products": [products.json_convert() for products in self.products],
         }
+
 
 class Order(Document):
     shop = ReferenceField(Shop, required=True)
     items = StringField(required=True) # JSON {items: [{item: id, params_cnt: int, a: int, b: int}, ...]}
     price = FloatField(required=True)
     created_at = DateTimeField(required=True)
+    
+    def json_convert(self):
+        return {
+            "id": str(self.pk),
+            "shop_id": str(self.shop.id),
+            "price": self.price,
+            "products": str(crud.modelsformat_to_response(self.items)),
+            "created_at": str(self.created_at),
+        }

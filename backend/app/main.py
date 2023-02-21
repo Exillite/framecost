@@ -420,6 +420,70 @@ async def get_template(template_id: str, token: str = None, user_id: str = None)
         return {"status": 500}
 
 
+@app.post(ApiPrefix + "/order")
+async def create_order(new_order: CreateOrder, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = crud.get_shop_by_id(new_order.shop_id)
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        order = crud.create_order(shop, new_order.items)
+        if not order:
+            return {"status": 400}
+        else:
+            return {"status": 200}
+    except Exception as e:
+        return {"status": 500}
+    
+    
+@app.get(ApiPrefix + "/order/{order_id}")
+async def get_order(order_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    order = crud.get_order_by_id(order_id)
+    shop = order.shop.pk
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+
+    try:
+        return {"status": 200, "order": order.json_convert()}
+    except Exception as e:
+        return {"status": 500}
+    
+    
+@app.get(ApiPrefix + "/shop/{shop_id}/orders")
+async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = crud.get_shop_by_id(shop_id)
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+
+    try:
+        orders = crud.get_orders_by_shop(shop)
+        orders_lst = []
+        for el in orders:
+            orders_lst.append(el.json_convert())
+            
+        if not orders_lst:
+            return {"status": 400}
+        
+        return {"status": 200, "orders": orders_lst}
+    except Exception as e:
+        return {"status": 500}
+
+
 connect(host=MONGODB_URL)
 
 if __name__ == "__main__":

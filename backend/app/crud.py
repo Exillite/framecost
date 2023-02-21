@@ -193,6 +193,25 @@ def parce_items_response(items: str) -> list:
 
     return items
 
+def modelsformat_to_response(items_str: str) -> dict:
+    # {items: [{item: id, params_cnt: int, a: int, b: int}, ...]}
+    data = json.loads(items_str)
+    new_data = {}
+    new_data['cnt'] = len(data['items'])
+    new_data['items'] = []
+    for el in data['items']:
+        new_el = {
+            'item_id': el['item'],
+            'cnt': el['params_cnt'],
+        }
+        if el['params_cnt'] >= 1:
+            new_el['a'] = el['a']
+        if el['params_cnt'] == 2:
+            new_el['b'] = el['b']
+        new_data['items'].append(new_el)
+    
+    return new_data
+        
 def calculate_order_price(items: list) -> float:
     price = 0
     for item in items:
