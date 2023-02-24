@@ -206,6 +206,7 @@ async def get_shops_products(shop_slug: str, token: str = None, user_id: str = N
         prods_lst = []
         
         for p in prods:
+            print(1)
             prods_lst.append(p.json_convert())
         
         return {"status": 200, "products": prods_lst}
@@ -227,6 +228,25 @@ async def get_product(product_slug: str, token: str = None, user_id: str = None)
 
     try:
         return {"status": 200, "product": prd.json_convert()}
+    except Exception as e:
+        return {"status": 500}
+    
+    
+@app.delete(ApiPrefix + "/product/{product_slug}")
+async def delete_product(product_slug: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    prd = crud.get_product(product_slug)
+    shop = prd.shop
+    if not prd:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+
+    try:
+        crud.delete_product(product_slug)
+        return {"status": 200}
     except Exception as e:
         return {"status": 500}
     
@@ -270,6 +290,26 @@ async def get_item(item_id: str, token: str = None, user_id: str = None):
         return {"status": 200, "item": item.json_convert()}
     except Exception as e:
         return {"status": 500}
+    
+    
+@app.delete(ApiPrefix + "/item/{item_id}")
+async def delete_item(item_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    item = crud.get_item_by_id(item_id)
+    prd = item.product
+    shop = prd.shop
+    if not item:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        crud.delete_item(item_id)
+        return {"status": 200}
+    except Exception as e:
+        return {"status": 500}
 
 
 @app.post(ApiPrefix + "/item")
@@ -289,8 +329,9 @@ async def create_item(new_item: CreateItem, token: str = None, user_id: str = No
         lst = []
         if prms['cnt'] >= 1:
             lst.append(prms['a'])
-        if prms == 2:
+        if prms['cnt'] == 2:
             lst.append(prms['b'])
+            
                 
         item = crud.create_item(prd, prms['cnt'], lst)
         if not item:
@@ -298,7 +339,8 @@ async def create_item(new_item: CreateItem, token: str = None, user_id: str = No
         
         return {"status": 200}
     except Exception as e:
-        return {"status": 500}
+        print(e)
+        return {"status": 500, "error": str(e)}
 
 
 @app.put(ApiPrefix + "/item/{item_id}")
@@ -350,7 +392,7 @@ async def get_all_products_items(product_slug: str, token: str = None, user_id: 
             return {"status": 400}
         items_lst = []
         for itm in items:
-            items_lst.append(itm.json_convert)
+            items_lst.append(itm.json_convert())
         
         return {"status": 200, "items": items_lst}
     except Exception as e:
@@ -418,6 +460,25 @@ async def get_template(template_id: str, token: str = None, user_id: str = None)
         return {"status": 200, "template": tmpl.json_convert()}
     except Exception as e:
         return {"status": 500}
+    
+    
+@app.delete(ApiPrefix + "/template/{template_id}")
+async def delete_template(template_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    tmpl = crud.get_template_by_id(template_id)
+    shop = tmpl.shop
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        crud.delete_template(template_id)
+        return {"status": 200}
+    except Exception as e:
+        return {"status": 500}
 
 
 @app.post(ApiPrefix + "/order")
@@ -459,6 +520,25 @@ async def get_order(order_id: str, token: str = None, user_id: str = None):
         return {"status": 500}
     
     
+@app.delete(ApiPrefix + "/order/{order_id}")
+async def delete_order(order_id: str, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    order = crud.get_order_by_id(order_id)
+    shop = order.shop.pk
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+
+    try:
+        crud.delete_order(order_id)
+        return {"status": 200}
+    except Exception as e:
+        return {"status": 500}
+    
+    
 @app.get(ApiPrefix + "/shop/{shop_id}/orders")
 async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None):
     user = is_login(token, user_id)
@@ -487,4 +567,4 @@ async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None)
 connect(host=MONGODB_URL)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000, debug=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

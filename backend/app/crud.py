@@ -95,32 +95,14 @@ def update_product(title: str, category: str, price: float, slug: str) -> Produc
         return product
     else:
         return None
+    
+def delete_product(slug: str):
+    product = Product.objects(slug=slug).first()
+    product.delete()
 
 
 def params_pars(params: str) -> dict:
-    params = params.split(', ')
-    cnt = int(params[0].split(": ")[1])
-    a, b = None, None
-    if cnt >= 1:
-        a = float(params[1].split(": ")[1])
-    if cnt == 2:
-        b = float(params[2].split(": ")[1])
-    
-    if cnt == 1:
-        return {
-            'cnt': cnt,
-            'a': a,
-        }
-    elif cnt == 2:
-        return {
-            'cnt': cnt,
-            'a': a,
-            'b': b,
-        }
-    else:
-        return {
-            'cnt': cnt,
-        }
+    return json.loads(params)
 
 def create_item(product: Product, parms_cnt: int, params: list) -> Item:
     item = Item(product=product, parms_cnt=parms_cnt)
@@ -151,6 +133,10 @@ def update_item(parms_cnt: int, params: list, id: str) -> Item:
         return item
     else:
         return None
+    
+def delete_item(id: str):
+    item = Item.objects(pk=id).first()
+    item.delete()
 
 
 def products_pars(products: str) -> list:
@@ -170,6 +156,10 @@ def create_template(title: str, shop: Shop, products: list) -> Template:
 
 def get_template(slug: str) -> Template:
     return Template.objects(slug=slug).first()
+
+def delete_template(id: str):
+    template = Template.objects(pk=id).first()
+    template.delete()
 
 def get_template_by_id(id: str) -> Template:
     return Template.objects(pk=id).first()
@@ -248,6 +238,10 @@ def create_order(shop: Shop, items: str) -> Order:
 
 def get_order_by_id(id: str) -> Order:
     return Order.objects(pk=id).first()
+
+def delete_order(id: str):
+    order = Order.objects(pk=id).first()
+    order.delete()
 
 def get_orders_by_shop(shop: Shop) -> list:
     return list(Order.objects(shop=shop))

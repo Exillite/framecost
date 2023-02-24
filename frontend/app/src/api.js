@@ -87,10 +87,19 @@ export default {
                 token: cookie.getCookie('token'),
                 user_id: cookie.getCookie('user_id'),
             },
-        })
+        });
     },
 
-    async update_product(shop_slug, title, category, price) {
+    async delete_product(product_slug) {
+        return Axios.delete(api_url + `/product/${product_slug}`, {
+            params: {
+                token: cookie.getCookie('token'),
+                user_id: cookie.getCookie('user_id'),
+            },
+        });
+    },
+
+    async update_product(product_slug, title, category, price) {
         return Axios.put(api_url + `/product/${product_slug}`, {
             title: title,
             category: category,
@@ -110,6 +119,15 @@ export default {
                 user_id: cookie.getCookie('user_id'),
             },
         })
+    },
+
+    async delete_item(item_id) {
+        return Axios.delete(api_url + `/item/${item_id}`, {
+            params: {
+                token: cookie.getCookie('token'),
+                user_id: cookie.getCookie('user_id'),
+            },
+        });
     },
 
     async create_item(product_id, params) {
@@ -138,7 +156,7 @@ export default {
     },
 
     async get_products_items(product_slug) {
-        return Axios.get(api_url + `/products/${product_slug}/items`, {
+        return Axios.get(api_url + `/product/${product_slug}/items`, {
             params: {
                 token: cookie.getCookie('token'),
                 user_id: cookie.getCookie('user_id'),
@@ -169,7 +187,7 @@ export default {
         })
     },
 
-    async get_shops_templates(template_id) {
+    async get_template(template_id) {
         return Axios.get(api_url + `/template/${template_id}`, {
             params: {
                 token: cookie.getCookie('token'),
@@ -178,8 +196,17 @@ export default {
         })
     },
 
-    async create_order(shop_id, products) {
-        // products example: {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
+    async delete_template(template_id) {
+        return Axios.delete(api_url + `/template/${template_id}`, {
+            params: {
+                token: cookie.getCookie('token'),
+                user_id: cookie.getCookie('user_id'),
+            },
+        })
+    },
+
+    async create_order(shop_id, items) {
+        // items example: {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
         return Axios.post(api_url + "/template", {
             shop_id: shop_id,
             items: items,
@@ -193,6 +220,15 @@ export default {
 
     async get_order(order_id) {
         return Axios.get(api_url + `/order/${order_id}`, {
+            params: {
+                token: cookie.getCookie('token'),
+                user_id: cookie.getCookie('user_id'),
+            },
+        })
+    },
+
+    async delete_order(order_id) {
+        return Axios.delete(api_url + `/order/${order_id}`, {
             params: {
                 token: cookie.getCookie('token'),
                 user_id: cookie.getCookie('user_id'),
