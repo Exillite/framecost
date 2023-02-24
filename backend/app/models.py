@@ -1,7 +1,7 @@
 from mongoengine import Document
 from mongoengine.fields import StringField, IntField, ListField, BooleanField, ReferenceField, URLField, DateTimeField, FloatField, DateField
 
-import crud
+import json
 
 class User(Document):
     password = StringField(required=True)
@@ -34,6 +34,7 @@ class Shop(Document):
         return {
             "id": str(self.id),
             "title": self.title,
+            "slug": self.slug,
             "owner": self.owner.json_convert(),
             "admins": [admin.json_convert() for admin in self.admins],
         }
@@ -48,11 +49,12 @@ class Product(Document):
     
     def json_convert(self):
         return {
-            "id": str(self.id),
+            "id": str(self.pk),
+            "title": self.title,
             "category": self.category,
             "price": self.price,
             "slug": self.slug,
-            "shop_id": self.shop.pk,
+            "shop": self.shop.json_convert(),
         }
 
 
@@ -72,8 +74,8 @@ class Item(Document):
             params = {"cnt": 2, "a": self.a, "b": self.b}
         return {
             "id": str(self.pk),
-            "product_id": self.product.pk,
-            "params": str(params),
+            "product_id": self.product,
+            "params": params,
         }
 
 
@@ -98,10 +100,25 @@ class Order(Document):
     created_at = DateTimeField(required=True)
     
     def json_convert(self):
+        data = json.loads(self.items)
+        new_data = {}
+        new_data['cnt'] = len(data['items'])
+        new_data['items'] = []
+        for el in data['items']:
+            new_el = {
+                'item_id': el['item'],
+                'cnt': el['params_cnt'],
+            }
+            if el['params_cnt'] >= 1:
+                new_el['a'] = el['a']
+            if el['params_cnt'] == 2:
+                new_el['b'] = el['b']
+            new_data['items'].append(new_el)
+
         return {
             "id": str(self.pk),
             "shop_id": str(self.shop.id),
             "price": self.price,
-            "products": str(crud.modelsformat_to_response(self.items)),
+            "products": str(new_data),
             "created_at": str(self.created_at),
         }

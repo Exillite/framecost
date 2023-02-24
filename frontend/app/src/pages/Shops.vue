@@ -26,13 +26,12 @@
                                 </div>
                                 <div class="text-caption">{{ shop.owner.name }} {{ shop.owner.surname }}</div>
                             </div>
-                            <div class="text--primary">
-                                Продуктов: {{ shop.products_cnt }}  Шаблонов: {{ shop.templates_cnt }}
-                            </div>
                             </v-card-item>
                             
                             <v-card-actions>
-                            <v-btn variant="outlined">
+                            <v-btn variant="outlined"
+                            @click="$router.push({name: 'Shop', params: {'slug': shop.slug }})"
+                            >
                                 Открыть
                             </v-btn>
                             </v-card-actions>
@@ -60,8 +59,6 @@
                 //         id: "234789234",
                 //         title: 'Mokos',
                 //         owner: 'Peta Petrov',
-                //         products_cnt: 34,
-                //         templates_cnt: 8,
                 //     },
                 // ],
             }
@@ -71,8 +68,6 @@
                 if (response.data.status == 200) {
                     this.shops = response.data.shops;
                 }
-                console.log(this.shops);
-                console.log(response);
             }).catch((error) => {
                 console.log(error);
             })

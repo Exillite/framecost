@@ -344,7 +344,7 @@ async def create_item(new_item: CreateItem, token: str = None, user_id: str = No
 
 
 @app.put(ApiPrefix + "/item/{item_id}")
-async def update_item(edit_itm: UpdateItem, item_id: str, token: str = None, user_id: str = None):
+async def update_item(item_id: str, edit_itm: UpdateItem, token: str = None, user_id: str = None):
     user = is_login(token, user_id)
     if not user:
         return {"status": 400}
@@ -567,4 +567,4 @@ async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None)
 connect(host=MONGODB_URL)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, debug=True)

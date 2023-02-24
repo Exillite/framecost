@@ -272,6 +272,25 @@ registeration page
     "status": "int",
 }
 ```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
+### Delete product
+- method: DELETE
+- path: /api/v1/product/{product_slug}
+- response body:
+```json
+{
+    "status": "int",
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
 
 
 ### Get item
@@ -337,6 +356,21 @@ registeration page
     - 500: internal server error
 
 
+### Delete item
+- method: DELETE
+- path: /api/v1/item/{item_id}
+- response body:
+```json
+{
+    "status": "int",
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
 ### Get all items of product
 - method: GET
 - path: /api/v1/product/{product_slug}/items
@@ -370,6 +404,21 @@ registeration page
     "products": "string", // { "products": [{ "product_id": "string" }, { "product_id": "string" }]}
 }
 ```
+- response body:
+```json
+{
+    "status": "int",
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
+### Delete template
+- method: DELETE
+- path: /api/v1/template/{template_id}
 - response body:
 ```json
 {
@@ -462,6 +511,21 @@ registeration page
         "products": "string", // {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
         "created_at": "datetime",
     }
+}
+```
+- status codes:
+    - 200: success
+    - 400: bad request
+    - 500: internal server error
+
+
+### Delete order
+- method: DELETE
+- path: /api/v1/order/{order_id}
+- response body:
+```json
+{
+    "status": "int",
 }
 ```
 - status codes:
