@@ -1,6 +1,14 @@
 import Main from '@/pages/Main.vue'
 import { createWebHistory, createRouter } from 'vue-router'
+import cookie from '@/cookie'
 
+
+function check_is_login() {
+    if (cookie.getCookie('user_id') === undefined) {
+        return true;
+    }
+    return true;
+}
 
 const routes = [{
         path: '/',
@@ -34,8 +42,14 @@ const routes = [{
     {
         path: '/product/:slug',
         name: 'Product',
+
         component: () =>
             import ('@/pages/Product.vue'),
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () =>
+            import ('@/pages/404.vue'),
     }
 ]
 
@@ -43,5 +57,6 @@ const router = new createRouter({
     history: createWebHistory(),
     routes
 })
+
 
 export default router

@@ -66,6 +66,14 @@ def get_shop(slug: str) -> Shop:
 def get_shop_by_id(id: str) -> Shop:
     return Shop.objects(pk=id).first()
 
+def add_admin_to_shop(shop_slug: str, user_email: str):
+    shop = Shop.objects(slug=shop_slug).first()
+    user = User.objects(email=user_email).first()
+    
+    shop.admins.append(user)
+    
+    shop.save()    
+
 
 def create_product(title: str, category: str, price: float, shop: Shop) -> Product:
     slug = slugify(title)

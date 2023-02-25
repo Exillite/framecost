@@ -147,6 +147,10 @@ async def get_shop(shop_slug: str, token: str = None, user_id: str = None):
         return {"status": 200, "shop": shop.json_convert()}
     except Exception as e:
         return {"status": 500}
+    
+
+@app.post(ApiPrefix + "/shop/admin")
+async def add_new_admin()
 
 
 @app.get(ApiPrefix + "/user/shops", description="Get all user shops endpoint")
@@ -433,7 +437,9 @@ async def get_shops_templates(shop_slug: str, token: str = None, user_id: str = 
     try:
         templs = crud.get_templates_by_shop(shop)
         templs_lst = []
+        print(templs)
         for tmpl in templs:
+            print(tmpl)
             templs_lst.append(tmpl.json_convert())
             
         if not templs_lst:

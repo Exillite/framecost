@@ -4,6 +4,7 @@ import cookie from '@/cookie'
 const api_url = 'http://127.0.0.1/api/v1';
 
 export default {
+
     async test() {
         return Axios.post("http://localhost:8000/api", {}, {
             params: {
@@ -179,7 +180,7 @@ export default {
     },
 
     async get_shops_templates(shop_slug) {
-        return Axios.get(api_url + `/shop/${shop_slug}/tempaltes`, {
+        return Axios.get(api_url + `/shop/${shop_slug}/templates`, {
             params: {
                 token: cookie.getCookie('token'),
                 user_id: cookie.getCookie('user_id'),

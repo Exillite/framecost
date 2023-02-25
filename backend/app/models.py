@@ -88,7 +88,7 @@ class Template(Document):
         return {
             "id": str(self.pk),
             "title": self.title,
-            "shop_id": self.shop.pk,
+            "shop": self.shop.json_convert(),
             "products": [products.json_convert() for products in self.products],
         }
 
