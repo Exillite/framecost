@@ -59,6 +59,17 @@ export default {
         })
     },
 
+    async add_shop_admin(user_email, shop_slug) {
+        return Axios.post(api_url + `/shop/${shop_slug}/admin`, {
+            email: user_email,
+        }, {
+            params: {
+                token: cookie.getCookie('token'),
+                user_id: cookie.getCookie('user_id'),
+            }
+        })
+    },
+
     async create_product(title, category, price, shop_id) {
         return Axios.post(api_url + "/product", {
             title: title,

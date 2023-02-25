@@ -149,8 +149,25 @@ async def get_shop(shop_slug: str, token: str = None, user_id: str = None):
         return {"status": 500}
     
 
-@app.post(ApiPrefix + "/shop/admin")
-async def add_new_admin()
+@app.post(ApiPrefix + "/shop/{shop_slug}/admin")
+async def add_new_admin(shop_slug: str, new_admin: AddAdmin, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    
+    try:
+        shop = Shop.objects(slug=shop_slug).first()
+        if not shop:
+            return {"status": 400}
+        if not permision_check(user, shop):
+            return {"status": 400}
+        
+        crud.add_admin_to_shop(shop_slug, new_admin.email)
+        
+        return {"status": 200}
+
+    except Exception as e:
+        return {"status": 500} 
 
 
 @app.get(ApiPrefix + "/user/shops", description="Get all user shops endpoint")

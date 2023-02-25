@@ -21,7 +21,10 @@ class GetUser(BaseModel):
 class UpdateUser(BaseModel):
     name: str
     surname: str
-    
+
+
+class AddAdmin(BaseModel):
+    email: str
 
 class CreateShop(BaseModel):
     title: str

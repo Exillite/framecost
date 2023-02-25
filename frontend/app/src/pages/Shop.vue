@@ -112,17 +112,21 @@
                     </v-window-item>
 
                     <v-window-item :value="3">
-                    Three
-                    {{ products_list }}
+                        
                     </v-window-item>
 
-                    <v-window-item :value="4">
+                    <v-window-item :value="4" style="margin-top: 10px;">
+                        <div v-for="admin in shop.admins" :key="admin.id" style="font-size: large;">
+                            {{ admin.name }} {{ admin.surname }}
+                        </div>
+
                         <v-form style="margin-top: 10px;">
                             <v-text-field
                                 label="E-mail нового администратора"
                                 v-model="es_admin_email"
                                 required
                                 default=""
+                                type="email"
                                 variant="outlined"
                             ></v-text-field>
 
@@ -275,6 +279,42 @@
     </v-card>
     </v-dialog>
 
+    <v-dialog
+        v-model="editTemplateDialog"
+        width="1000px"
+        persistent
+    >
+    <v-card>
+        <v-card-text>
+            <v-form>
+                <h3>{{ et_title }}</h3>
+
+                <v-list :items="et_products"></v-list>
+
+            </v-form>
+        </v-card-text>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="delete_template()"
+                variant="outlined"
+                color="error"
+            >
+                Удалить
+            </v-btn>
+                
+            <v-btn
+                @click="editTemplateDialog = false;"
+                variant="outlined"
+                color="success"
+            >
+                ОК
+            </v-btn>
+
+        </v-card-actions>
+    </v-card>
+    </v-dialog>
+
 </template>
 
 <script>
@@ -366,7 +406,7 @@
             },
 
             add_admin() {
-                
+                api.add_shop_admin(this.es_admin_email, this.shop.slug);
             },
         },
 
