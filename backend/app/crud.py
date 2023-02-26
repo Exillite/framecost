@@ -183,9 +183,9 @@ def parce_items_response(items: str) -> list:
     for item in data["items"]:
         itm = Item.objects(pk=item["item_id"]).first()
         if int(item["cnt"]) == 2:
-            items.append({"item": itm, "cnt": int(item["cnt"]), "a": item["a"], "b": item["b"]})
+            items.append({"item": itm, "cnt": int(item["cnt"]), "a": float(item["a"]), "b": float(item["b"])})
         elif int(item["cnt"]) == 1:
-            items.append({"item": itm, "cnt": int(item["cnt"]), "a": item["a"]})
+            items.append({"item": itm, "cnt": int(item["cnt"]), "a": float(item["a"])})
         else:
             items.append({"item": itm, "cnt": int(item["cnt"])})
 
@@ -224,6 +224,17 @@ def calculate_order_price(items: list) -> float:
         
     return price
 
+def edit_on_order(items: list):
+    for item in items:
+        if item["cnt"] == 0:
+            continue
+        if item["cnt"] == 1:
+            item["item"].a -= item["a"]
+        if item["cnt"] == 2:
+            item["item"].a -= item["a"]
+            item["item"].b -= item["b"]
+        item["item"].save()            
+
 def create_order(shop: Shop, items: str) -> Order:
     order = Order(shop=shop)
     items_list = parce_items_response(items)
@@ -237,13 +248,20 @@ def create_order(shop: Shop, items: str) -> Order:
             items_data["items"].append({"item": str(itm["item"].id), "params_cnt": itm["cnt"], "a": itm["a"]})
         else:
             items_data["items"].append({"item": str(itm["item"].id), "params_cnt": itm["cnt"]})
-    
+
+    edit_on_order(items_list)
+
     order.items = str(items_data)
-    order.created_at = datetime.now()
+    order.created_at = datetime.datetime.now()
     order.save()
     
     return order
 
+def order_price(shop: Shop, items: str) -> Order:
+    items_list = parce_items_response(items)
+    price = calculate_order_price(items_list)
+    return price
+    
 def get_order_by_id(id: str) -> Order:
     return Order.objects(pk=id).first()
 

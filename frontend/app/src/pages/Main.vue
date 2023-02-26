@@ -15,6 +15,9 @@
             }
         },
         mounted() {
+
+            $router.push({name: 'Login'});
+
             api.test().then((response) => {
                 console.log(response);
                 this.hi = response.data.message;

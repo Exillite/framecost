@@ -112,7 +112,45 @@
                     </v-window-item>
 
                     <v-window-item :value="3">
+                        <div style="margin-top: 10px;">
+                            <v-btn variant="outlined" block
+                            color="blue-grey"
+                            @click="newOrderDialog = true">
+                                Новый заказ
+                            </v-btn>
+                        </div>
                         
+                        <div v-for="order in orders" :key="order.id">
+                            <v-card
+                                class="mx-auto"
+                                variant="outlined"
+                            >
+                                <v-card-item>
+                                <div>
+                                    <div class="text-overline mb-1">
+                                        {{ order.created_at.split('.')[0] }}
+                                    </div>
+                                    <div class="text-h6 mb-1">
+                                        <div v-for="item in order.products.items.slice(0, 5)">
+                                            {{ item.product.title }}
+                                        </div>
+                                        <div v-if="order.products.items.length >= 5">...</div>
+                                    </div>
+                                    <div class="text-caption">
+                                        {{ order.price }}₽
+                                    </div>
+                                </div>
+                                </v-card-item>
+                                
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn variant="outlined"
+                                    @click="openEditOrder(order)">
+                                        Открыть
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </div>
                     </v-window-item>
 
                     <v-window-item :value="4" style="margin-top: 10px;">
@@ -195,7 +233,6 @@
     </v-card>
     </v-dialog>
 
-
     <v-dialog
         v-model="newTemplateDialog"
         width="1000px"
@@ -242,7 +279,6 @@
     </v-card>
     </v-dialog>
 
-
     <v-dialog
         v-model="editTemplateDialog"
         width="1000px"
@@ -280,31 +316,133 @@
     </v-dialog>
 
     <v-dialog
-        v-model="editTemplateDialog"
+        v-model="newOrderDialog"
         width="1000px"
         persistent
     >
     <v-card>
         <v-card-text>
             <v-form>
-                <h3>{{ et_title }}</h3>
+                <v-select
+                    label="Выберите шаблон"
+                    v-model="no_template"
+                    :items="templates"
+                    variant="outlined"
+                    item-title="title"
+                    item-value="id"
+                    @update:model-value="select_new_order_items()"
+                ></v-select>
+                
 
-                <v-list :items="et_products"></v-list>
+                <div v-if="no_template !== null">
+
+                    <div v-for="prd in no_items">
+                        
+                        <h3>{{ prd.product.title }} - {{ prd.product.price }}</h3>
+
+                        <v-select
+                            label="Выберите товар"
+                            v-model="prd.s_item"
+                            :items="prd.items"
+                            variant="outlined"
+                            item-title="prmst"
+                            item-value="params"
+                        ></v-select>
+
+                        <div v-if="prd.s_item">
+                            <div v-if="prd.s_item.cnt == 0">
+
+                            </div>
+                            <div v-if="prd.s_item.cnt == 1">
+                                <v-text-field
+                                    label="Укажите параметр"
+                                    v-model="prd.a"
+                                    required
+                                    type="number"
+                                    min="0"
+                                    default=""
+                                    variant="outlined"
+                                ></v-text-field>
+                            </div>
+                            <div v-if="prd.s_item.cnt == 2">
+                                <v-text-field
+                                    label="Укажите параметр №1"
+                                    v-model="prd.a"
+                                    required
+                                    type="number"
+                                    min="0"
+                                    default=""
+                                    variant="outlined"
+                                ></v-text-field>
+
+                                <v-text-field
+                                    label="Укажите параметр №2"
+                                    v-model="prd.b"
+                                    required
+                                    type="number"
+                                    min="0"
+                                    default=""
+                                    variant="outlined"
+                                ></v-text-field>
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <v-btn
+                    @click="get_order_price()"
+                    >Расчитать стоимость</v-btn>
+                    <h3 v-if="no_price !== null">{{ no_price }}</h3>
+
+                </div>
 
             </v-form>
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                @click="delete_template()"
+                @click="newOrderDialog = false"
                 variant="outlined"
                 color="error"
             >
-                Удалить
+                Отмена
             </v-btn>
                 
             <v-btn
-                @click="editTemplateDialog = false;"
+                variant="outlined"
+                color="success"
+                @click="create_order()"
+            >
+                Создать заказ
+            </v-btn>
+
+        </v-card-actions>
+    </v-card>
+    </v-dialog>
+
+    <v-dialog
+        v-model="editOrderDialog"
+        width="1000px"
+        persistent
+    >
+    <v-card>
+        <v-card-text>
+            <v-form>
+                <h3>{{ eo_products.created_at.split('.')[0] }}</h3>
+
+                <v-list :items="eo_products.products.items" item-title="txt"></v-list>
+
+                <h3>{{ eo_products.price }}₽</h3>
+
+            </v-form>
+        </v-card-text>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+
+                
+            <v-btn
+                @click="editOrderDialog = false;"
                 variant="outlined"
                 color="success"
             >
@@ -327,10 +465,14 @@
                 newProductDialog: false,
                 newTemplateDialog: false,
                 editTemplateDialog: false,
+                newOrderDialog: false,
+                editOrderDialog: false,
 
                 shop: {},
                 products: [],
                 templates: [],
+                orders: [],
+
                 activeTab: 1,
                 
                 np_title: "",
@@ -347,6 +489,12 @@
                 et_products: [],
 
                 products_list: [],
+
+                no_template: null,
+                no_items: [],
+                no_price: null,
+
+                eo_products: [],
             }
         },
 
@@ -355,7 +503,6 @@
                 api.create_product(this.np_title, this.np_category, this.np_price, this.shop.id);
 
                 api.get_shops_products(this.shop.slug).then((response) => {
-                    console.log(response.data);
                     this.products = response.data.products;
                 });
 
@@ -408,6 +555,133 @@
             add_admin() {
                 api.add_shop_admin(this.es_admin_email, this.shop.slug);
             },
+
+            select_new_order_items() {
+                if (this.no_template !== null){
+                    let tmpl = {};
+                    api.get_template(this.no_template).then((r) => {
+                        tmpl = r.data.template;
+
+                        // console.log(tmpl.products);
+                                                
+                        for (let i = 0; i < tmpl.products.length; i++) {
+                            const element = tmpl.products[i];
+                            let itm = {};
+                            itm.product = element;
+
+                            api.get_products_items(element.slug).then((rr) => {
+                                itm.items = rr.data.items;
+                                itm.items.forEach(function(el){
+                                    el.params.id = el.id;
+                                    if (el.params.cnt == 0) {
+                                        el.prmst = "Параметры отсутствуют";
+                                    }
+                                    if (el.params.cnt == 1) {
+                                        el.prmst = el.params.a;
+                                    }
+                                    if (el.params.cnt == 2) {
+                                        el.prmst = `${el.params.a} X ${el.params.b}`
+                                    }
+                                })
+                                itm.s_item = null;
+                                itm.a = null;
+                                itm.b = null;
+                                this.no_items.push(itm);
+                            });
+                        }
+                        // console.log(this.no_items);
+                    });
+
+                }
+            },
+
+            create_order() {
+                let itms = {};
+                itms.cnt = this.no_items.length;
+                itms.items = [];
+
+                this.no_items.forEach(function(el) {
+                    let itm = {};
+                    itm.item_id = el.s_item.id;
+
+                    itm.cnt = el.s_item.cnt;
+                    if (itm.cnt >= 1) {
+                        itm.a = el.a;
+                    }
+                    if (itm.cnt == 2) {
+                        itm.b = el.b;
+                    }
+
+                    itms.items.push(itm);
+                });
+
+                api.create_order(this.shop.id, JSON.stringify(itms)).then((r) => {
+                    api.get_shops_orders(this.shop.id).then((r) => {
+                        this.orders = r.data.orders;
+                    });
+                });
+
+
+
+                this.newOrderDialog = false;
+            },
+
+
+            get_order_price() {
+                let itms = {};
+                itms.cnt = this.no_items.length;
+                itms.items = [];
+
+                this.no_items.forEach(function(el) {
+                    let itm = {};
+                    itm.item_id = el.s_item.id;
+
+                    itm.cnt = el.s_item.cnt;
+                    if (itm.cnt >= 1) {
+                        itm.a = el.a;
+                    }
+                    if (itm.cnt == 2) {
+                        itm.b = el.b;
+                    }
+
+                    itms.items.push(itm);
+                });
+
+
+                api.order_price(this.shop.id, JSON.stringify(itms)).then((r) => {
+                    this.no_price = r.data.price;
+                });
+            },
+
+            openEditOrder(order) {
+                this.eo_products = order;
+                this.eo_products.products.items.forEach(function(el) {
+                    el.txt = el.product.title + " - ";
+
+                    if (el.cnt == 0) {
+                        el.txt += "Нет параметров"
+                    }
+                    if (el.cnt == 1) {
+                        el.txt += `${el.a}`;
+                    }
+                    if (el.cnt == 2) {
+                        el.txt += `${el.a} x ${el.b}`;
+                    }
+                });
+
+                this.editOrderDialog = true;
+            },
+
+            delete_order() {
+                api.delete_order(this.eo_products.id).then((r) => {
+                    api.get_shops_orders(this.shop.id).then((r) => {
+                        this.orders = r.data.orders;
+                    });
+
+                    this.editOrderDialog = false;
+                });
+            },
+
         },
 
         mounted() {
@@ -421,6 +695,10 @@
 
                 api.get_shops_templates(this.shop.slug).then((r) => {
                     this.templates = r.data.templates;
+                });
+
+                api.get_shops_orders(this.shop.id).then((r) => {
+                    this.orders = r.data.orders;
                 });
             });
         },

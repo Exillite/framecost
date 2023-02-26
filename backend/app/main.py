@@ -522,7 +522,25 @@ async def create_order(new_order: CreateOrder, token: str = None, user_id: str =
         else:
             return {"status": 200}
     except Exception as e:
-        return {"status": 500}
+        return {"status": 500, "error": str(e)}
+    
+    
+@app.post(ApiPrefix + "/order/price")
+async def calculate_order_price(new_order: CreateOrder, token: str = None, user_id: str = None):
+    user = is_login(token, user_id)
+    if not user:
+        return {"status": 400}
+    shop = crud.get_shop_by_id(new_order.shop_id)
+    if not shop:
+        return {"status": 400}
+    if not permision_check(user, shop):
+        return {"status": 400}
+    
+    try:
+        price = crud.order_price(shop, new_order.items)
+        return {"status": 200, "price": price}
+    except Exception as e:
+        return {"status": 500, "error": str(e)}
     
     
 @app.get(ApiPrefix + "/order/{order_id}")
@@ -540,7 +558,7 @@ async def get_order(order_id: str, token: str = None, user_id: str = None):
     try:
         return {"status": 200, "order": order.json_convert()}
     except Exception as e:
-        return {"status": 500}
+        return {"status": 500, "error": str(e)}
     
     
 @app.delete(ApiPrefix + "/order/{order_id}")
@@ -584,7 +602,7 @@ async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None)
         
         return {"status": 200, "orders": orders_lst}
     except Exception as e:
-        return {"status": 500}
+        return {"status": 500, "error": str(e)}
 
 
 connect(host=MONGODB_URL)

@@ -100,6 +100,7 @@ class Order(Document):
     created_at = DateTimeField(required=True)
     
     def json_convert(self):
+        self.items = self.items.replace("\'", "\"")
         data = json.loads(self.items)
         new_data = {}
         new_data['cnt'] = len(data['items'])
@@ -113,12 +114,15 @@ class Order(Document):
                 new_el['a'] = el['a']
             if el['params_cnt'] == 2:
                 new_el['b'] = el['b']
+            
+            item = Item.objects(pk=new_el["item_id"]).first()
+            new_el["product"] = item.product.json_convert()
             new_data['items'].append(new_el)
 
         return {
             "id": str(self.pk),
             "shop_id": str(self.shop.id),
             "price": self.price,
-            "products": str(new_data),
+            "products": new_data,
             "created_at": str(self.created_at),
         }

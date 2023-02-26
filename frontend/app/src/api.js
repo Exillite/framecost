@@ -219,7 +219,20 @@ export default {
 
     async create_order(shop_id, items) {
         // items example: {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
-        return Axios.post(api_url + "/template", {
+        return Axios.post(api_url + "/order", {
+            shop_id: shop_id,
+            items: items,
+        }, {
+            params: {
+                token: cookie.getCookie('token'),
+                user_id: cookie.getCookie('user_id'),
+            }
+        })
+    },
+
+    async order_price(shop_id, items) {
+        // items example: {cnt: 2, items: [{"item_id": "string", cnt: 2, a: "float", b: "float"}, {"item_id": "string", cnt: 1, a: "float"}]}
+        return Axios.post(api_url + "/order/price", {
             shop_id: shop_id,
             items: items,
         }, {
