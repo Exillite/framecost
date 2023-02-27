@@ -1,10 +1,18 @@
 import cookie from "@/cookie"
 
 export default {
-    check_auth(page) {
+
+    check_auth() {
         const token = cookie.getCookie('token');
-        if (!token) {
-            page.$router.push({ name: 'Login' });
+        const user_id = cookie.getCookie('user_id');
+        if (token === undefined || user_id === undefined) {
+            return false;
         }
+        return true;
+    },
+
+    log_out() {
+        cookie.deleteCookie('token');
+        cookie.deleteCookie('user_id');
     },
 }

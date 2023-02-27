@@ -177,14 +177,9 @@ async def get_users_shops(token: str = None, user_id: str = None):
         return {"status": 400}
     
     try:
-        print(user.email)
-        shops = Shop.objects(admins__contains=user)
-        shops_list = []
+        shops = crud.get_users_shops(user)
         
-        for shop in shops:
-            shops_list.append(shop.json_convert())
-            
-        shops = Shop.objects(owner=user)
+        shops_list = []
         for shop in shops:
             shops_list.append(shop.json_convert())
             

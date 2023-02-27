@@ -1,4 +1,5 @@
 from models import User, Shop, Product, Item, Template, Order
+from mongoengine.queryset.visitor import Q
 
 import bcrypt
 from slugify import slugify
@@ -65,6 +66,11 @@ def get_shop(slug: str) -> Shop:
 
 def get_shop_by_id(id: str) -> Shop:
     return Shop.objects(pk=id).first()
+
+def get_users_shops(user: User) -> list:
+    shops = Shop.objects(Q(admins__contains=user) | Q(owner=user))
+    
+    return list(shops)
 
 def add_admin_to_shop(shop_slug: str, user_email: str):
     shop = Shop.objects(slug=shop_slug).first()

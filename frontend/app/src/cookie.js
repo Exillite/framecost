@@ -21,7 +21,7 @@ export default {
     },
 
     deleteCookie(name) {
-        setCookie(name, "", {
+        this.setCookie(name, "", {
             'max-age': -1
         })
     },

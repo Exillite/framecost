@@ -1,9 +1,13 @@
 <template>
     <v-app>
         <v-app-bar app>
-            <v-toolbar-title>ЛОГО</v-toolbar-title>
+            <v-toolbar-title
+                @click="$router.push({name: 'Main'})"
+            >ЛОГО</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
+            <v-btn icon
+                @click="log_out()"
+            >
                 <v-icon>mdi-export</v-icon>
             </v-btn>
         </v-app-bar>
@@ -338,7 +342,7 @@
 
                     <div v-for="prd in no_items">
                         
-                        <h3>{{ prd.product.title }} - {{ prd.product.price }}</h3>
+                        <h3>{{ prd.product.title }} - {{ prd.product.price }}₽</h3>
 
                         <v-select
                             label="Выберите товар"
@@ -393,7 +397,7 @@
                     <v-btn
                     @click="get_order_price()"
                     >Расчитать стоимость</v-btn>
-                    <h3 v-if="no_price !== null">{{ no_price }}</h3>
+                    <h3 v-if="no_price !== null">{{ no_price }}₽</h3>
 
                 </div>
 
@@ -457,6 +461,7 @@
 
 <script>
     import api from '@/api'
+    import control from '@/control';
 
     export default {
         
@@ -499,13 +504,17 @@
         },
 
         methods: {
+            log_out() {
+                control.log_out();
+                this.$router.push({name: 'Login'});
+            },
+
             create_product() {
-                api.create_product(this.np_title, this.np_category, this.np_price, this.shop.id);
-
-                api.get_shops_products(this.shop.slug).then((response) => {
-                    this.products = response.data.products;
+                api.create_product(this.np_title, this.np_category, this.np_price, this.shop.id).then((r) => {
+                    api.get_shops_products(this.shop.slug).then((response) => {
+                        this.products = response.data.products;
+                    });
                 });
-
                 this.newProductDialog = false;
             },
 
@@ -685,6 +694,11 @@
         },
 
         mounted() {
+
+            if (!control.check_auth()){
+                this.$router.push({name: 'Login'});
+            }
+
             api.get_shop(this.$route.params.slug).then((response) => {
                 this.shop = response.data.shop;
                 

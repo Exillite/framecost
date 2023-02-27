@@ -7,6 +7,7 @@
 <script>
 
     import api from '@/api'
+    import control from '@/control';
 
     export default {
         data() {
@@ -16,12 +17,16 @@
         },
         mounted() {
 
-            $router.push({name: 'Login'});
+            if (control.check_auth()){
+                this.$router.push({name: 'Shops'});
+            } else {
+                this.$router.push({name: 'Login'});
+            }
 
-            api.test().then((response) => {
-                console.log(response);
-                this.hi = response.data.message;
-            })
+            // api.test().then((response) => {
+            //     console.log(response);
+            //     this.hi = response.data.message;
+            // })
         },
     }
 </script>

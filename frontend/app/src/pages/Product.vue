@@ -1,9 +1,10 @@
 <template>
     <v-app>
         <v-app-bar app>
-            <v-toolbar-title>ЛОГО</v-toolbar-title>
+            <v-toolbar-title @click="$router.push({name: 'Main'})">ЛОГО</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
+            <v-btn icon
+            @click="log_out()">
                 <v-icon>mdi-export</v-icon>
             </v-btn>
         </v-app-bar>
@@ -292,6 +293,8 @@
 
 <script>
     import api from '@/api'
+    import control from '@/control';
+
 
     export default {
         
@@ -322,6 +325,12 @@
         },
 
         methods: {
+
+            log_out() {
+                control.log_out();
+                this.$router.push({name: 'Login'});
+            },
+
             create_item() {
 
                 if (this.ni_count_params == null) {
@@ -417,6 +426,11 @@
         },
 
         mounted() {
+
+            if (!control.check_auth()){
+                this.$router.push({name: 'Login'});
+            }
+
             api.get_product(this.$route.params.slug).then((r) => {
                 this.product = r.data.product;
 
