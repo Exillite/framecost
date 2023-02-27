@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import cookie from '@/cookie'
 
-const api_url = 'http://127.0.0.1/api/v1';
+const api_url = '/api/v1';
 
 export default {
 

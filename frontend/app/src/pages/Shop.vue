@@ -513,6 +513,7 @@
                 api.create_product(this.np_title, this.np_category, this.np_price, this.shop.id).then((r) => {
                     api.get_shops_products(this.shop.slug).then((response) => {
                         this.products = response.data.products;
+                        this.products.forEach(element => this.add_product_to_list(element));
                     });
                 });
                 this.newProductDialog = false;
