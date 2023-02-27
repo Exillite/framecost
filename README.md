@@ -12,12 +12,6 @@ tabs: products, templtates, orders, settings
 - orders - list of all orders from shop
 - settings - shop settings (change title, add/remove admins, etc)
 
-### Template
-see/edit template
-
-### Order
-see/edit order
-
 ### Login
 login page
 
