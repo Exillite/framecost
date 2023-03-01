@@ -123,4 +123,36 @@ class Rama_With_Cant(BaseTemplate):
         self.cant = (self.width + 3 + 3.6 + self.height + 3 + 3.6) * 2
         self.tros = 20 + self.width + 4 * 2
 
+
+class Double_Rama(BaseTemplate):
+    rama1: float
+    rama2: float
+    osnova: float
+    zadnik: float
+    steklo: float
+    natazka: float
+    tros: float
+
+    def __init__(self, width: float, height: float, is_horisontal: bool, baget1_width: float, baget2_width: float):
+        self.is_horisontal = is_horisontal
+        self.width = width
+        self.height = height
+        if self.is_horisontal and self.width < self.height:
+            self.width, self.height = self.height, self.width
+            
+        if not self.is_horisontal and self.width > self.height:
+            self.width, self.height = self.height, self.width
+            
+        self.baget1_width = baget1_width
+        self.baget2_width = baget2_width
         
+        self.calculate()
+        
+    def calculate(self):
+        self.rama1 = ((self.width + 1.5 + self.baget1_width * 2) + (self.height + 1.5 + self.baget1_width * 2)) * 2
+        self.rama2 = (self.width + 1 + self.baget1_width * 2 + self.baget2_width * 2 + self.height + 1 + self.baget1_width * 2 + self.baget2_width * 2) * 2
+        self.osnova = (self.width + 2) * (self.height + 2)
+        self.zadnik = (self.width + 2 + self.baget1_width + self.baget1_width + 3) * (self.height + 2 + self.baget1_width + self.baget1_width + 3)
+        self.steklo = (self.width + 4 + self.baget1_width * 2) * (self.height + 4 + self.baget1_width * 2)
+        self.natazka = (self.width + self.width) * 2
+        self.tros = 20 + self.width + self.baget1_width * 2
