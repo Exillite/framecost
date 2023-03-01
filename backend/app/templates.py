@@ -156,3 +156,34 @@ class Double_Rama(BaseTemplate):
         self.steklo = (self.width + 4 + self.baget1_width * 2) * (self.height + 4 + self.baget1_width * 2)
         self.natazka = (self.width + self.width) * 2
         self.tros = 20 + self.width + self.baget1_width * 2
+
+
+class Rama_With_Natazka_Na_Podramnik(BaseTemplate):
+    rama: float
+    podramnic: float
+    podramnic60: float
+    tros: float
+    steklo: float
+    less_storona: float
+    
+    def __init__(self, width: float, height: float, is_horisontal: bool, baget_width: float):
+        self.is_horisontal = is_horisontal
+        self.width = width
+        self.height = height
+        if self.is_horisontal and self.width < self.height:
+            self.width, self.height = self.height, self.width
+            
+        if not self.is_horisontal and self.width > self.height:
+            self.width, self.height = self.height, self.width
+            
+        self.baget_width = baget_width
+        self.less_storona = min(self.width, self.height)
+        
+        self.calculate()
+        
+    def calculate(self):
+        self.rama = ((self.width + 1.5 + self.baget_width * 2) + (self.height + 1.5 + self.baget_width * 2)) * 2
+        self.podramnic = (self.width + 2 + self.height + 2) * 2
+        self.podramnic60 = (self.width + 2 + self.height + 2) * 2 + self.less_storona
+        self.tros = 20 + self.width
+        self.steklo = (self.width + 4) * (self.height + 4)
