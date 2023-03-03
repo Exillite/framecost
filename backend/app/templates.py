@@ -297,7 +297,7 @@ class Rama_With_Cant_And_Double_Paspartu(BaseTemplate):
         self.paspartu_width = paspartu_width
         
         self.calculate()
-    
+
     def calculate(self):
         self.rama = (self.width + 1.5 + self.baget_width * 2 + self.paspartu_width * 2) * 2 + (self.height + 1.5 + self.baget_width * 2 + self.paspartu_width * 2) * 2
         self.paspartu = (self.width + 2 + self.paspartu_width * 2) * (self.height + 2 + self.paspartu_width * 2)
@@ -309,3 +309,43 @@ class Rama_With_Cant_And_Double_Paspartu(BaseTemplate):
         self.steklo = (self.width + 4 + self.paspartu_width * 2) * (self.height + 4 + self.paspartu_width * 2)
         self.natazka = (self.width + self.height) * 2
         self.tros = 20 + self.width + self.paspartu_width * 2 + 3
+
+
+class Volume_Dezigne(BaseTemplate):
+    rama: float
+    osnova: float
+    zadnik: float
+    paspar_baget: float
+    paspar_osnova: float
+    paspar_obshee: float
+    steklo: float
+    natazka: float
+    tros: float
+    rabota: float
+    
+    def __init__(self, width: float, height: float, is_horisontal: bool, baget_width: float, baget_height: float):
+        self.is_horisontal = is_horisontal
+        self.width = width
+        self.height = height
+        if self.is_horisontal and self.width < self.height:
+            self.width, self.height = self.height, self.width
+            
+        if not self.is_horisontal and self.width > self.height:
+            self.width, self.height = self.height, self.width
+            
+        self.baget_width = baget_width
+        self.baget_height = baget_height
+        
+        self.calculate()
+
+    def calculate(self):
+        self.rama = (self.width + 1,5 + self.baget_width * 2) * 2 + (self.height + 1,5 + self.baget_width * 2) * 2
+        osnova = (self.width + 2) * (self.height + 2)
+        zadnik = ((self.width * 4) * 2 + (self.height * self.baget_height) * 2) * 2 + self.osnova
+        paspar_baget = (self.width * self.baget_height) * 2 + (self.height * self.baget_height) * 2
+        paspar_osnova = (self.width + 2) * (self.height + 2)
+        paspar_obshee = self.paspar_baget + self.paspar_osnova
+        steklo = (self.width + 2) * (self.height + 2)
+        natazka = (self.width + self.height) * 2
+        tros = 20 + self.width
+        rabota = self.width * 2 + self.height * 2
