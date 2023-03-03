@@ -49,7 +49,17 @@ class WithOut_Paspartu(BaseTemplate):
         self.steklo = (self.width + 4) * (self.height + 4)
         self.natazka = (self.width + self.width) * 2
         self.tros = 20 + self.width
-        
+    
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "tros": self.tros,
+        }
+
 
 class With_Paspartu(BaseTemplate):
     rama: float
@@ -90,6 +100,20 @@ class With_Paspartu(BaseTemplate):
         self.natazka = (self.width + self.width) * 2
         self.tros = 20 + self.width + self.paspartu_width * 2
 
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "paspartu": self.paspartu,
+            "pricleyca": self.pricleyca,
+            "dvoynoe": self.dvoynoe,
+            "troynoe": self.troynoe,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "tros": self.tros,
+        }
+
 
 class Rama_With_Cant(BaseTemplate):
     rama: float
@@ -122,6 +146,17 @@ class Rama_With_Cant(BaseTemplate):
         self.natazka = (self.width + self.width) * 2
         self.cant = (self.width + 3 + 3.6 + self.height + 3 + 3.6) * 2
         self.tros = 20 + self.width + 4 * 2
+        
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "cant": self.cant,
+            "tros": self.tros,
+        }
 
 
 class Double_Rama(BaseTemplate):
@@ -157,6 +192,17 @@ class Double_Rama(BaseTemplate):
         self.natazka = (self.width + self.width) * 2
         self.tros = 20 + self.width + self.baget1_width * 2
 
+    def get_data(self) -> dict:
+        return {
+            "rama1": self.rama1, 
+            "rama2": self.rama2, 
+            "osnova": self.osnova, 
+            "zadnik": self.zadnik, 
+            "steklo": self.steklo, 
+            "natazka": self.natazka, 
+            "tros": self.tros, 
+        }
+
 
 class Rama_With_Natazka_Na_Podramnik(BaseTemplate):
     rama: float
@@ -187,6 +233,15 @@ class Rama_With_Natazka_Na_Podramnik(BaseTemplate):
         self.podramnic60 = (self.width + 2 + self.height + 2) * 2 + self.less_storona
         self.tros = 20 + self.width
         self.steklo = (self.width + 4) * (self.height + 4)
+
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "podramnic": self.podramnic,
+            "podramnic60": self.podramnic60,
+            "tros": self.tros,
+            "steklo": self.steklo, 
+        }
 
 
 class Double_Rama_With_Paspartu(BaseTemplate):
@@ -232,6 +287,21 @@ class Double_Rama_With_Paspartu(BaseTemplate):
         self.natazka = (self.width + self.height) * 2
         self.tros = 20 + self.width + self.paspartu_width * 2 + self.baget1_width * 2
 
+    def get_data(self) -> dict:
+        return {
+            "rama1": self.rama1,
+            "rama2": self.rama2,
+            "paspartu": self.paspartu,
+            "nakleyka": self.nakleyka,
+            "dvoynoe": self.dvoynoe,
+            "troynoe": self.troynoe,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "tros": self.tros,
+        }
+
 
 class Rama_With_Cant_And_Single_Paspartu(BaseTemplate):
     rama: float
@@ -269,6 +339,19 @@ class Rama_With_Cant_And_Single_Paspartu(BaseTemplate):
         self.steklo = (self.width + 4 + self.paspartu_width * 2 + self.baget_width * 2) * (self.height + 4 + self.paspartu_width * 2 + self.baget_width * 2)
         self.natazka = (self.width + self.height) * 2
         self.tros = 20 + self.width + self.paspartu_width * 2 + self.baget_width * 2
+
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "papartu": self.papartu,
+            "prikleyka": self.prikleyka,
+            "cant": self.cant,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "tros": self.tros,
+        }
 
 
 class Rama_With_Cant_And_Double_Paspartu(BaseTemplate):
@@ -310,6 +393,20 @@ class Rama_With_Cant_And_Double_Paspartu(BaseTemplate):
         self.natazka = (self.width + self.height) * 2
         self.tros = 20 + self.width + self.paspartu_width * 2 + 3
 
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "paspartu": self.paspartu,
+            "pricleyka": self.pricleyka,
+            "dvoynoe": self.dvoynoe,
+            "cant": self.cant,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "tros": self.tros,
+        }
+
 
 class Volume_Dezigne(BaseTemplate):
     rama: float
@@ -340,15 +437,29 @@ class Volume_Dezigne(BaseTemplate):
 
     def calculate(self):
         self.rama = (self.width + 1,5 + self.baget_width * 2) * 2 + (self.height + 1,5 + self.baget_width * 2) * 2
-        osnova = (self.width + 2) * (self.height + 2)
-        zadnik = ((self.width * 4) * 2 + (self.height * self.baget_height) * 2) * 2 + self.osnova
-        paspar_baget = (self.width * self.baget_height) * 2 + (self.height * self.baget_height) * 2
-        paspar_osnova = (self.width + 2) * (self.height + 2)
-        paspar_obshee = self.paspar_baget + self.paspar_osnova
-        steklo = (self.width + 2) * (self.height + 2)
-        natazka = (self.width + self.height) * 2
-        tros = 20 + self.width
-        rabota = self.width * 2 + self.height * 2
+        self.osnova = (self.width + 2) * (self.height + 2)
+        self.zadnik = ((self.width * 4) * 2 + (self.height * self.baget_height) * 2) * 2 + self.osnova
+        self.paspar_baget = (self.width * self.baget_height) * 2 + (self.height * self.baget_height) * 2
+        self.paspar_osnova = (self.width + 2) * (self.height + 2)
+        self.paspar_obshee = self.paspar_baget + self.paspar_osnova
+        self.steklo = (self.width + 2) * (self.height + 2)
+        self.natazka = (self.width + self.height) * 2
+        self.tros = 20 + self.width
+        self.rabota = self.width * 2 + self.height * 2
+
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "paspar_baget": self.paspar_baget,
+            "paspar_osnova": self.paspar_osnova,
+            "paspar_obshee": self.paspar_obshee,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "tros": self.tros,
+            "rabota": self.rabota,
+        }
 
 
 class Volume_Dezigne_With_Paspartu(BaseException):
@@ -383,16 +494,33 @@ class Volume_Dezigne_With_Paspartu(BaseException):
         self.calculate()
 
     def calculate(self):
-        rama = (self.width + 1,5 + self.paspartu_width * 2 + self.baget_width * 2) * 2 + (self.height + 1,5 + self.paspartu_width * 2 + self.baget_width * 2) * 2
-        osnova = (self.width + 2) * (self.height + 2)
-        zadnik = (((self.width + 1,5) * self.baget_height) * 2 + ((self.height + 1,5) * self.baget_height) * 2) * 2 + ((self.width + 1,5 + self.paspartu_width * 2) * (self.height + 1,5 + self.paspartu_width * 2))
-        paspar_baget = ((self.width + 1,5) * self.baget_height) * 2 + ((self.height + 1,5) * self.baget_height) * 2
-        paspartu_okno = ((self.width + 2) + self.paspartu_width * 2) * ((self.height + 2) + self.paspartu_width * 2)
-        paspartu_osnova = ((self.width + 2) + self.paspartu_width * 2) * ((self.height + 2) + self.paspartu_width * 2)
-        paspar_osnova_bokov = self.paspar_baget + self.paspartu_osnova
-        steklo = (self.width + 4 + self.paspartu_width * 2) * (self.height + 4 + self.paspartu_width * 2)
-        natazka = (self.width + self.height) * 2
-        dvoynoe_paspartu = ((self.width + 4) + (self.height + 4)) * 2
-        troynoe_pasprtu = self.dvoynoe_paspartu * 2
-        tros = self.width + self.paspartu_width * 2 + 20
-        rabota = (self.width + self.paspartu_width * 2) * 2 + (self.height + self.paspartu_width * 2) * 2
+        self.rama = (self.width + 1,5 + self.paspartu_width * 2 + self.baget_width * 2) * 2 + (self.height + 1,5 + self.paspartu_width * 2 + self.baget_width * 2) * 2
+        self.osnova = (self.width + 2) * (self.height + 2)
+        self.zadnik = (((self.width + 1,5) * self.baget_height) * 2 + ((self.height + 1,5) * self.baget_height) * 2) * 2 + ((self.width + 1,5 + self.paspartu_width * 2) * (self.height + 1,5 + self.paspartu_width * 2))
+        self.paspar_baget = ((self.width + 1,5) * self.baget_height) * 2 + ((self.height + 1,5) * self.baget_height) * 2
+        self.paspartu_okno = ((self.width + 2) + self.paspartu_width * 2) * ((self.height + 2) + self.paspartu_width * 2)
+        self.paspartu_osnova = ((self.width + 2) + self.paspartu_width * 2) * ((self.height + 2) + self.paspartu_width * 2)
+        self.paspar_osnova_bokov = self.paspar_baget + self.paspartu_osnova
+        self.steklo = (self.width + 4 + self.paspartu_width * 2) * (self.height + 4 + self.paspartu_width * 2)
+        self.natazka = (self.width + self.height) * 2
+        self.dvoynoe_paspartu = ((self.width + 4) + (self.height + 4)) * 2
+        self.troynoe_pasprtu = self.dvoynoe_paspartu * 2
+        self.tros = self.width + self.paspartu_width * 2 + 20
+        self.rabota = (self.width + self.paspartu_width * 2) * 2 + (self.height + self.paspartu_width * 2) * 2
+
+    def get_data(self) -> dict:
+        return {
+            "rama": self.rama,
+            "osnova": self.osnova,
+            "zadnik": self.zadnik,
+            "paspar_baget": self.paspar_baget,
+            "paspartu_okno": self.paspartu_okno,
+            "paspartu_osnova": self.paspartu_osnova,
+            "paspar_osnova_bokov": self.paspar_osnova_bokov,
+            "steklo": self.steklo,
+            "natazka": self.natazka,
+            "dvoynoe_paspartu": self.dvoynoe_paspartu,
+            "troynoe_pasprtu": self.troynoe_pasprtu,
+            "tros": self.tros,
+            "rabota": self.rabota,
+        }
