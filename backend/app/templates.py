@@ -231,3 +231,41 @@ class Double_Rama_With_Paspartu(BaseTemplate):
         self.steklo = (self.width + 4 + self.paspartu_width * 2 + self.baget1_width * 2) * (self.height + 4 + self.paspartu_width * 2 + self.baget1_width * 2)
         self.natazka = (self.width + self.height) * 2
         self.tros = 20 + self.width + self.paspartu_width * 2 + self.baget1_width * 2
+
+
+class Rama_With_Cant_And_Single_Paspartu(BaseTemplate):
+    rama: float
+    papartu: float
+    prikleyka: float
+    cant: float
+    osnova: float
+    zadnik: float
+    steklo: float
+    natazka: float
+    tros: float
+    
+    def __init__(self, width: float, height: float, is_horisontal: bool, baget_width: float, paspartu_width: float):
+        self.is_horisontal = is_horisontal
+        self.width = width
+        self.height = height
+        if self.is_horisontal and self.width < self.height:
+            self.width, self.height = self.height, self.width
+            
+        if not self.is_horisontal and self.width > self.height:
+            self.width, self.height = self.height, self.width
+            
+        self.baget_width = baget_width
+        self.paspartu_width = paspartu_width
+        
+        self.calculate()
+    
+    def calculate(self):
+        self.rama = ((self.width + 1.5) + (self.baget_width * 2) + (self.paspartu_width * 2)) * 2 + ((self.height + 1.5) + (self.baget_width * 2) + (self.paspartu_width)) * 2
+        self.papartu = (self.width + 2 + self.paspartu_width * 2) * (self.height + 2 + self.paspartu_width * 2)
+        self.prikleyka = ((self.width + 2) + (self.height + 2)) * 2
+        self.cant = (self.width + 3) * 2 + (self.height + 3) * 2
+        self.osnova = (self.width + 2) * (self.height + 2)
+        self.zadnik = (self.width + 1 + 2 + self.paspartu_width + self.paspartu_width + 3) * (self.height + 1 + 2 + self.paspartu_width + self.paspartu_width + 3)
+        self.steklo = (self.width + 4 + self.paspartu_width * 2 + self.baget_width * 2) * (self.height + 4 + self.paspartu_width * 2 + self.baget_width * 2)
+        self.natazka = (self.width + self.height) * 2
+        self.tros = 20 + self.width + self.paspartu_width * 2 + self.baget_width * 2
