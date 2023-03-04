@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Header, HTTPException, Response
+from fastapi import FastAPI
 import uvicorn
 from mongoengine import connect
 from envparse import Env
@@ -7,6 +7,8 @@ from typing import Union
 
 from models import *
 from shemas import *
+
+from templates import *
 
 import crud
 
@@ -598,7 +600,53 @@ async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None)
         return {"status": 200, "orders": orders_lst}
     except Exception as e:
         return {"status": 500, "error": str(e)}
+    
 
+@app.post(ApiPrefix + "/price/{template}")
+async def get_templat_prices(template: str, tmpp: Template_Price):
+    data = json.loads(tmpp.data)['data']
+    if template == "WithOut_Paspartu":
+        tmpl = With_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+        
+    elif template == "With_Paspartu":
+        tmpl = With_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"], data["paspartu_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+    
+    elif template == "Rama_With_Cant":
+        tmpl = Rama_With_Cant(data["width"], data["height"], data["is_horisontal"], data["baget_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+        
+    elif template == "Double_Rama":
+        tmpl = Double_Rama(data["width"], data["height"], data["is_horisontal"], data["baget1_width"], data["baget2_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+    
+    elif template == "Rama_With_Natazka_Na_Podramnik":
+        tmpl = Rama_With_Natazka_Na_Podramnik(data["width"], data["height"], data["is_horisontal"], data["baget_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+        
+    elif template == "Double_Rama_With_Paspartu":
+        tmpl = Double_Rama_With_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget1_width"], data["baget2_width"], data["paspartu_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+
+    elif template == "Rama_With_Cant_And_Single_Paspartu":
+        tmpl = Rama_With_Cant_And_Single_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"], data["paspartu_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+        
+    elif template == "Rama_With_Cant_And_Double_Paspartu":
+        tmpl = Rama_With_Cant_And_Double_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"], data["paspartu_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+        
+    elif template == "Volume_Dezigne":
+        tmpl = Volume_Dezigne(data["width"], data["height"], data["is_horisontal"], data["baget_width"], data["baget_height"])
+        return {"status": 200, "data": tmpl.get_data()}
+        
+    elif template == "Volume_Dezigne_With_Paspartu":
+        tmpl = Volume_Dezigne_With_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"], data["baget_height"], data["paspartu_width"])
+        return {"status": 200, "data": tmpl.get_data()}
+    
+    else:
+        return {"status": 400}
 
 connect(host=MONGODB_URL)
 

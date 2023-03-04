@@ -715,6 +715,9 @@
                 api.get_shops_orders(this.shop.id).then((r) => {
                     this.orders = r.data.orders;
                 });
+
+
+                api.get_tmplate_prices("sad", JSON.stringify({dasdas: 12, asdsad: "dsadsa"}));
             });
         },
     }

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import cookie from '@/cookie'
 
-const api_url = '/api/v1';
+const api_url = 'http://127.0.0.1/api/v1';
 
 export default {
 
@@ -270,4 +270,9 @@ export default {
         })
     },
 
+    async get_tmplate_prices(template_type, data) {
+        return Axios.post(api_url + `/price/${template_type}`, {
+            data: data,
+        });
+    },
 }

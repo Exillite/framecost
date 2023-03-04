@@ -59,3 +59,7 @@ class CreateTemplate(BaseModel):
 class CreateOrder(BaseModel):
     shop_id: str
     items: str
+
+
+class Template_Price(BaseModel):
+    data: str
