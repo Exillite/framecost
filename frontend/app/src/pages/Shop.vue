@@ -119,7 +119,8 @@
                         <div style="margin-top: 10px;">
                             <v-btn variant="outlined" block
                             color="blue-grey"
-                            @click="newOrderDialog = true">
+                            @click="$router.push({name: 'NewOrder', params: {'slug': this.shop.slug }});"
+                            >
                                 Новый заказ
                             </v-btn>
                         </div>
@@ -664,7 +665,8 @@
             },
 
             openEditOrder(order) {
-                this.eo_products = order;
+
+                this.eo_products = order; 
                 this.eo_products.products.items.forEach(function(el) {
                     el.txt = el.product.title + " - ";
 

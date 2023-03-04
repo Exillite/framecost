@@ -42,15 +42,20 @@ const routes = [{
     {
         path: '/product/:slug',
         name: 'Product',
-
         component: () =>
             import ('@/pages/Product.vue'),
+    },
+    {
+        path: '/shop/:slug/neworder',
+        name: 'NewOrder',
+        component: () =>
+            import ('@/pages/NewOrder.vue'),
     },
     {
         path: '/:pathMatch(.*)*',
         component: () =>
             import ('@/pages/404.vue'),
-    }
+    },
 ]
 
 const router = new createRouter({
