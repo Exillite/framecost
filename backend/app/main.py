@@ -604,9 +604,10 @@ async def get_shops_orders(shop_id: str, token: str = None, user_id: str = None)
 
 @app.post(ApiPrefix + "/price/{template}")
 async def get_templat_prices(template: str, tmpp: Template_Price):
-    data = json.loads(tmpp.data)['data']
+    data = json.loads(tmpp.data)
+    print(data)
     if template == "WithOut_Paspartu":
-        tmpl = With_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"])
+        tmpl = WithOut_Paspartu(data["width"], data["height"], data["is_horisontal"], data["baget_width"])
         return {"status": 200, "data": tmpl.get_data()}
         
     elif template == "With_Paspartu":

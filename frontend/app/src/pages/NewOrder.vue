@@ -40,7 +40,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -51,7 +51,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -67,7 +67,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -81,7 +81,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -92,7 +92,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -108,7 +108,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -119,7 +119,7 @@
                         v-model="paspartu_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -133,7 +133,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -144,7 +144,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -160,7 +160,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -174,7 +174,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -185,7 +185,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -201,7 +201,7 @@
                         v-model="baget1_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -212,7 +212,7 @@
                         v-model="baget2_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -226,7 +226,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -237,7 +237,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -253,7 +253,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -267,7 +267,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -278,7 +278,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -294,7 +294,7 @@
                         v-model="baget1_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -305,7 +305,7 @@
                         v-model="baget2_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -316,7 +316,7 @@
                         v-model="paspartu_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -330,7 +330,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -341,7 +341,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -357,7 +357,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -368,7 +368,7 @@
                         v-model="paspartu_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -382,7 +382,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -393,7 +393,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -409,7 +409,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -420,7 +420,7 @@
                         v-model="paspartu_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -434,7 +434,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -445,7 +445,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -461,7 +461,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -472,7 +472,7 @@
                         v-model="baget_height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -486,7 +486,7 @@
                         v-model="width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -497,7 +497,7 @@
                         v-model="height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -513,7 +513,7 @@
                         v-model="baget_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -524,7 +524,7 @@
                         v-model="baget_height"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -535,7 +535,7 @@
                         v-model="paspartu_width"
                         required
                         type="number"
-                        min="0.01"
+                        min="0.000000001"
                         default=""
                         step="0.01"
                         variant="outlined"
@@ -543,7 +543,34 @@
 
                 </div>
 
+                <v-btn
+                    @click="calculate()"
+                    variant="outlined"
+                    color="success"
+                >
+                    Добавить
+                </v-btn>
+
                 <v-divider></v-divider>
+
+                <div v-for="item in items">
+                    <h3>{{ item.title }} - {{ item.value }}</h3>
+                    <v-autocomplete
+                        v-model="item.product"
+                        :items="products"
+                        item-title="title"
+                        label="Продукт"
+                        :clearable="true"
+                        @update:model-value="selectProduct(item)"
+                    ></v-autocomplete>
+
+                    <v-select
+                        label="Выбор товара"
+                        :items="item.items"
+                    ></v-select>
+
+                    {{ item }}
+                </div>
 
             </v-container>
         </v-main>
@@ -558,6 +585,12 @@
         data() {
             return {
                 template_id: null,
+
+                products: [],
+
+                items: [],
+
+                params: {},
 
                 width: null,
                 height: null,
@@ -574,91 +607,133 @@
         methods: {
             calculate() {
                 const data = {};
-                const templ_type = "";
+                let templ_type = "";
 
                 if (this.template_id == 0) {
-                    templ_type = ""; // TODO sttfr
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "WithOut_Paspartu";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
                     
-                    data.baget_width = this.baget_width;
+                    data.baget_width = parseFloat(this.baget_width);
                 }
                 if (this.template_id == 1) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "With_Paspartu";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
 
-                    data.baget_width = this.baget_width;
-                    data.paspartu_width = this.paspartu_width;
+                    data.baget_width = parseFloat(this.baget_width);
+                    data.paspartu_width = parseFloat(this.paspartu_width);
                 }
                 if (this.template_id == 2) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Rama_With_Cant";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
-                    
-                    data.baget_width = this.baget_width;
+
+                    data.baget_width = parseFloat(this.baget_width);
                 }
                 if (this.template_id == 3) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Double_Rama";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
                     
-                    data.baget1_width = this.baget1_width;
-                    data.baget2_width = this.baget2_width;
+                    data.baget1_width = parseFloat(this.baget1_width);
+                    data.baget2_width = parseFloat(this.baget2_width);
                 }
                 if (this.template_id == 4) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Rama_With_Natazka_Na_Podramnik";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
                     
-                    data.baget_width = this.baget_width;
+                    data.baget_width = parseFloat(this.baget_width);
                 }
                 if (this.template_id == 5) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Double_Rama_With_Paspartu";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
                     
-                    data.baget1_width = this.baget1_width;
-                    data.baget2_width = this.baget2_width;
-                    data.paspartu_width = this.paspartu_width;
+                    data.baget1_width = parseFloat(this.baget1_width);
+                    data.baget2_width = parseFloat(this.baget2_width);
+                    data.paspartu_width = parseFloat(this.paspartu_width);
                 }
                 if (this.template_id == 6) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Rama_With_Cant_And_Single_Paspartu";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
 
-                    data.baget_width = this.baget_width;
-                    data.paspartu_width = this.paspartu_width;
+                    data.baget_width = parseFloat(this.baget_width);
+                    data.paspartu_width = parseFloat(this.paspartu_width);
                 }
                 if (this.template_id == 7) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Rama_With_Cant_And_Double_Paspartu";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
 
-                    data.baget_width = this.baget_width;
-                    data.paspartu_width = this.paspartu_width;
+                    data.baget_width = parseFloat(this.baget_width);
+                    data.paspartu_width = parseFloat(this.paspartu_width);
                 }
                 if (this.template_id == 8) {
-                    data.width = this.width;
-                    data.height = this.height;
+                    templ_type = "Volume_Dezigne";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
 
-                    data.baget_width = this.baget_width;
-                    data.paspartu_width = this.paspartu_width;
+                    data.baget_width = parseFloat(this.baget_width);
+                    data.baget_height = parseFloat(this.baget_height);
                 }
-                if (this.template_id == 8) {
-                    data.width = this.width;
-                    data.height = this.height;
+                if (this.template_id == 9) {
+                    templ_type = "Volume_Dezigne_With_Paspartu";
+                    data.width = parseFloat(this.width);
+                    data.height = parseFloat(this.height);
                     data.is_horisontal = this.is_horisontal;
 
-                    data.baget_width = this.baget_width;
-                    data.paspartu_width = this.paspartu_width;
-                    data.paspartu_width = this.paspartu_width;
+                    data.baget_width = parseFloat(this.baget_width);
+                    data.baget_height = parseFloat(this.baget_height);
+                    data.paspartu_width = parseFloat(this.paspartu_width);
                 }
+                api.get_tmplate_prices(templ_type, JSON.stringify(data)).then((r) => {
+                    this.params = r.data.data;
 
-                api.get_tmplate_prices()
-            }
+                    for (var key in this.params) {
+                        const item = {};
+                        item.title = key;
+                        item.value = this.params[key];
+                        item.product = null;
+                        item.items = [];
+                        item.item = {};
+                        this.items.push(item);
+                    }
+                });
+            },
+
+            selectProduct(el) {
+                for (var prod in this.products) {
+                    if (prod.title === el.title) {
+                        el.items = prod.items;
+                        return;                   
+                    }
+                }
+            },
+        },
+
+        mounted() {
+            api.get_shops_products(this.$route.params.slug).then((r) => {
+                this.products = r.data.products;
+                console.log(this.products);
+
+                this.products.forEach(function(el) {
+                    api.get_products_items(el.slug).then((r) => {
+                        el.items = r.data.items;
+                    });
+                });
+            });
         },
     }
 </script>
