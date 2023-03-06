@@ -544,11 +544,13 @@
                 </div>
 
                 <v-btn
+                    v-if="template_id != null"
+
                     @click="calculate()"
                     variant="outlined"
                     color="success"
                 >
-                    Добавить
+                    Расчитать параметры
                 </v-btn>
 
                 <v-divider></v-divider>
@@ -565,12 +567,40 @@
                     ></v-autocomplete>
 
                     <v-select
+                        v-if="item.product"
+
                         label="Выбор товара"
                         :items="item.items"
+                        item-title="txt"
+                        item-value="id"
+                        v-model="item.item"
                     ></v-select>
-
-                    {{ item }}
                 </div>
+
+                <br>
+
+                <v-btn
+                    v-if="items.length > 0"
+
+                    @click="get_order_price()"
+                    variant="outlined"
+                    color="success"
+                >
+                    Расчитать стоимость
+                </v-btn>
+
+                <h2 v-if="order_price">{{ order_price }}₽</h2>
+                <br>
+                <v-btn
+                    v-if="items.length > 0"
+
+                    @click="create_order()"
+                    variant="outlined"
+                    color="success"
+                >
+                    Создать заказ
+                </v-btn>
+
 
             </v-container>
         </v-main>
@@ -584,6 +614,8 @@
     export default {
         data() {
             return {
+                shop: {},
+
                 template_id: null,
 
                 products: [],
@@ -601,6 +633,7 @@
                 baget2_width:null,
                 baget_height: null,
 
+                order_price: null,
             }
         },
 
@@ -707,32 +740,104 @@
                         item.value = this.params[key];
                         item.product = null;
                         item.items = [];
-                        item.item = {};
+                        item.item = null;
                         this.items.push(item);
                     }
                 });
             },
 
             selectProduct(el) {
+                // console.log(this.products);
+                // console.log(el);
+                var itms;
                 for (var prod in this.products) {
-                    if (prod.title === el.title) {
-                        el.items = prod.items;
-                        return;                   
+                    if (this.products[prod].title === el.product) {
+                        itms = this.products[prod].items;
+                        break;       
                     }
                 }
+                console.log(itms);
+                for (var item in this.items) {
+                    if (this.items[item].product == el.product) {
+                        this.items[item].item = null;
+                        this.items[item].items = itms;
+                        break;
+                    }
+                }
+            },
+
+            get_order_price() {
+                const data = {}
+                data.cnt = 0;
+                data.items = [];
+                
+                this.items.forEach(function(el) {
+                    if (el.item != null){
+                        data.cnt += 1;
+
+                        const itm = {};
+                        itm.item_id = el.item;
+                        itm.cnt = 1;
+                        itm.a = el.value;
+
+                        data.items.push(itm);
+                    }
+                });
+
+                api.order_price(this.shop.id, JSON.stringify(data)).then((r) => {
+                    this.order_price = r.data.price;
+                });
+            },
+
+            create_order() {
+                const data = {}
+                data.cnt = 0;
+                data.items = [];
+                
+                this.items.forEach(function(el) {
+                    if (el.item != null){
+                        data.cnt += 1;
+
+                        const itm = {};
+                        itm.item_id = el.item;
+                        itm.cnt = 1;
+                        itm.a = el.value;
+
+                        data.items.push(itm);
+                    }
+                });
+
+
+                api.create_order(this.shop.id, JSON.stringify(data)).then((r) => {
+                    this.$router.push({name: 'Shop', params: {'slug': this.shop.slug }});
+                });
             },
         },
 
         mounted() {
             api.get_shops_products(this.$route.params.slug).then((r) => {
                 this.products = r.data.products;
-                console.log(this.products);
 
                 this.products.forEach(function(el) {
                     api.get_products_items(el.slug).then((r) => {
                         el.items = r.data.items;
+                        el.items.forEach(function(ell) {
+                            if (ell.params.cnt == 0) {
+                                ell.txt = "Нет параметров";
+                            }
+                            if (ell.params.cnt == 1) {
+                                ell.txt = `${el.title} - ${ell.params.a}`
+                            }
+                            if (ell.params.cnt == 2) {
+                                ell.txt = `${ell.params.a} x ${ell.params.b}`
+                            }
+                        })
                     });
                 });
+            });
+
+            api.get_shop(this.$route.params.slug).then((r) => {
+                this.shop = r.data.shop;
             });
         },
     }

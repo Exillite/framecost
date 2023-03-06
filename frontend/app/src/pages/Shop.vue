@@ -23,9 +23,9 @@
                     Товары
                     </v-tab>
 
-                    <v-tab :value="2">
+                    <!-- <v-tab :value="2">
                     Шаблоны
-                    </v-tab>
+                    </v-tab> -->
 
                     <v-tab :value="3">
                     Заказы
@@ -719,7 +719,7 @@
                 });
 
 
-                api.get_tmplate_prices("sad", JSON.stringify({dasdas: 12, asdsad: "dsadsa"}));
+                // api.get_tmplate_prices("sad", JSON.stringify({dasdas: 12, asdsad: "dsadsa"}));
             });
         },
     }

@@ -276,5 +276,4 @@ def delete_order(id: str):
     order.delete()
 
 def get_orders_by_shop(shop: Shop) -> list:
-    return list(Order.objects(shop=shop))
-    
+    return list(Order.objects(shop=shop).order_by('-created_at'))

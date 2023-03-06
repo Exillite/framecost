@@ -145,7 +145,7 @@
     <v-card>
         <v-card-text>
             <v-form>
-                <v-select
+                <!-- <v-select
                     v-model="ni_count_params"
                     :items="[
                         { title: 'Параметры не требуются', value: 0 },
@@ -156,7 +156,7 @@
                     label="Количество параметров"
                     required
                     variant="outlined"
-                ></v-select>
+                ></v-select> -->
 
 
                 <v-text-field
@@ -218,7 +218,7 @@
     <v-card>
         <v-card-text>
             <v-form>
-                <v-select
+                <!-- <v-select
                     v-model="ei_count_params"
                     :items="[
                         { title: 'Параметры не требуются', value: 0 },
@@ -229,7 +229,7 @@
                     label="Количество параметров"
                     required
                     variant="outlined"
-                ></v-select>
+                ></v-select> -->
 
 
                 <v-text-field
@@ -312,7 +312,7 @@
                 newItemDialog: false,
                 editItemDialog: false,
 
-                ni_count_params: null,
+                ni_count_params: 1,
                 ni_a: null,
                 ni_b: null,
 
@@ -360,7 +360,7 @@
                     });
                 });
 
-                this.ni_count_params = null;
+                this.ni_count_params = 1;
                 this.ni_a = null;
                 this.ni_b = null;
 
