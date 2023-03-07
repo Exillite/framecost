@@ -128,7 +128,7 @@
                                 v-for="product in products"
                                 :key="product.id" 
                             >
-                                <td v-if="srch(product)">{{ product.title }}</td>
+                                <td v-if="srch(product)"><router-link :to="{name: 'Product', params: {'slug': product.slug }}">{{ product.title }}</router-link></td>
                                 <td v-if="srch(product)">{{ product.price }}</td>
                                 <td v-if="srch(product)">{{ product.slug }}</td>
                                 <td v-if="srch(product)">{{ product.category }}</td>
