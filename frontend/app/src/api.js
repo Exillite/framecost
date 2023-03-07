@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import cookie from '@/cookie'
 
-const api_url = '/api/v1';
+const api_url = 'http://127.0.0.1/api/v1';
 
 export default {
 
@@ -70,11 +70,13 @@ export default {
         })
     },
 
-    async create_product(title, category, price, shop_id) {
+    async create_product(title, category, price, coef, slug, shop_id) {
         return Axios.post(api_url + "/product", {
             title: title,
             category: category,
             price: price,
+            slug: slug,
+            coef: coef,
             shop_id: shop_id,
         }, {
             params: {

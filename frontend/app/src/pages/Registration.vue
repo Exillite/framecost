@@ -23,6 +23,7 @@
             <v-text-field
                 v-model="form.name"
                 label="Имя"
+                variant="outlined"
                 type="text"
                 :rules="nameRules"
                 autocomplete="given-name"
@@ -30,6 +31,7 @@
             <v-text-field
                 v-model="form.surname"
                 label="Фамилия"
+                variant="outlined"
                 type="text"
                 required
                 :rules="surnameRules"
@@ -38,6 +40,7 @@
             <v-text-field
                 v-model="form.login"
                 label="Логин"
+                variant="outlined"
                 type="text"
                 required
                 :rules="loginRules"
@@ -45,6 +48,7 @@
             ></v-text-field>
             <v-text-field
                 v-model="form.email"
+                variant="outlined"
                 label="E-mail"
                 type="email"
                 required
@@ -52,6 +56,7 @@
                 autocomplete="email"
             ></v-text-field>
             <v-text-field
+                variant="outlined"
                 v-model="form.password"
                 label="Пароль"
                 type="password"
@@ -60,6 +65,7 @@
                 autocomplete="current-password"
             ></v-text-field>
             <v-text-field
+                variant="outlined"
                 v-model="form.repit_password"
                 label="Повторите пароль"
                 type="password"
@@ -67,7 +73,7 @@
                 :rules="repit_passwordRules"
                 autocomplete="current-password"
             ></v-text-field>
-            <v-btn type="submit" color="primary" :disabled="!isFormValid" >Зарегистрироваться</v-btn>
+            <v-btn variant="outlined" type="submit" color="primary" :disabled="!isFormValid" >Зарегистрироваться</v-btn>
         </v-form>
         </v-container>
       </v-main>

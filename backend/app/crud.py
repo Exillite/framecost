@@ -81,12 +81,8 @@ def add_admin_to_shop(shop_slug: str, user_email: str):
     shop.save()    
 
 
-def create_product(title: str, category: str, price: float, shop: Shop) -> Product:
-    slug = slugify(title)
-    while Product.objects(slug=slug).first():
-        slug += "1"
-    
-    product = Product(title=title, category=category, price=price, slug=slug, shop=shop)
+def create_product(title: str, category: str, price: float, slug: str, coef: float, shop: Shop) -> Product:    
+    product = Product(title=title, category=category, price=price, slug=slug, coef=coef, shop=shop)
     product.save()
     return product
 
@@ -226,7 +222,7 @@ def calculate_order_price(items: list) -> float:
             col = item["a"]
         else:
             col = 1
-        price += item["item"].product.price * col
+        price += item["item"].product.price * col * item["item"].product.coef
         
     return price
 

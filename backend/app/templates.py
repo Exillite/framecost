@@ -52,12 +52,12 @@ class WithOut_Paspartu(BaseTemplate):
     
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "tros": self.tros,
+            "Рама": self.rama,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Трос": self.tros,
         }
 
 
@@ -102,16 +102,16 @@ class With_Paspartu(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "paspartu": self.paspartu,
-            "pricleyca": self.pricleyca,
-            "dvoynoe": self.dvoynoe,
-            "troynoe": self.troynoe,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "tros": self.tros,
+            "Рама": self.rama,
+            "Паспарту": self.paspartu,
+            "Приклейка работы к паспарту": self.pricleyca,
+            "Двойное": self.dvoynoe,
+            "Тройное": self.troynoe,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Трос": self.tros,
         }
 
 
@@ -149,13 +149,13 @@ class Rama_With_Cant(BaseTemplate):
         
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "cant": self.cant,
-            "tros": self.tros,
+            "Рама": self.rama,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Кант": self.cant,
+            "Трос": self.tros,
         }
 
 
@@ -194,13 +194,13 @@ class Double_Rama(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama1": self.rama1, 
-            "rama2": self.rama2, 
-            "osnova": self.osnova, 
-            "zadnik": self.zadnik, 
-            "steklo": self.steklo, 
-            "natazka": self.natazka, 
-            "tros": self.tros, 
+            "Рама 1": self.rama1, 
+            "Рама 2": self.rama2, 
+            "Основа": self.osnova, 
+            "Задник": self.zadnik, 
+            "Стекло": self.steklo, 
+            "Натяжка": self.natazka, 
+            "Трос": self.tros, 
         }
 
 
@@ -236,11 +236,11 @@ class Rama_With_Natazka_Na_Podramnik(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "podramnic": self.podramnic,
-            "podramnic60": self.podramnic60,
-            "tros": self.tros,
-            "steklo": self.steklo, 
+            "Рама": self.rama,
+            "Подрамник": self.podramnic,
+            "Подрамник 60": self.podramnic60,
+            "Трос": self.tros,
+            "Стекло": self.steklo, 
         }
 
 
@@ -289,17 +289,17 @@ class Double_Rama_With_Paspartu(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama1": self.rama1,
-            "rama2": self.rama2,
-            "paspartu": self.paspartu,
-            "nakleyka": self.nakleyka,
-            "dvoynoe": self.dvoynoe,
-            "troynoe": self.troynoe,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "tros": self.tros,
+            "Рама 1": self.rama1,
+            "Рама 2": self.rama2,
+            "Паспарту": self.paspartu,
+            "Приклейка работы к паспарту": self.nakleyka,
+            "Двойное": self.dvoynoe,
+            "Тройное": self.troynoe,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Трос": self.tros,
         }
 
 
@@ -342,15 +342,15 @@ class Rama_With_Cant_And_Single_Paspartu(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "papartu": self.papartu,
-            "prikleyka": self.prikleyka,
-            "cant": self.cant,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "tros": self.tros,
+            "Рама": self.rama,
+            "Паспарту": self.papartu,
+            "Приклейка работы к паспарту": self.prikleyka,
+            "Кант": self.cant,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Трос": self.tros,
         }
 
 
@@ -395,16 +395,16 @@ class Rama_With_Cant_And_Double_Paspartu(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "paspartu": self.paspartu,
-            "pricleyka": self.pricleyka,
-            "dvoynoe": self.dvoynoe,
-            "cant": self.cant,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "tros": self.tros,
+            "Рама": self.rama,
+            "Паспарту": self.paspartu,
+            "Приклейка работы к паспарту": self.pricleyka,
+            "Двойное": self.dvoynoe,
+            "Кант": self.cant,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Трос": self.tros,
         }
 
 
@@ -436,7 +436,7 @@ class Volume_Dezigne(BaseTemplate):
         self.calculate()
 
     def calculate(self):
-        self.rama = (self.width + 1,5 + self.baget_width * 2) * 2 + (self.height + 1,5 + self.baget_width * 2) * 2
+        self.rama = (self.width + 1.5 + self.baget_width * 2) * 2 + (self.height + 1.5 + self.baget_width * 2) * 2
         self.osnova = (self.width + 2) * (self.height + 2)
         self.zadnik = ((self.width * 4) * 2 + (self.height * self.baget_height) * 2) * 2 + self.osnova
         self.paspar_baget = (self.width * self.baget_height) * 2 + (self.height * self.baget_height) * 2
@@ -449,16 +449,16 @@ class Volume_Dezigne(BaseTemplate):
 
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "paspar_baget": self.paspar_baget,
-            "paspar_osnova": self.paspar_osnova,
-            "paspar_obshee": self.paspar_obshee,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "tros": self.tros,
-            "rabota": self.rabota,
+            "Рама": self.rama,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Паспар.д/багета": self.paspar_baget,
+            "Паспар.основа": self.paspar_osnova,
+            "Общдее паспар.": self.paspar_obshee,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "Трос": self.tros,
+            "Работа по объемн.короб": self.rabota,
         }
 
 
@@ -494,10 +494,10 @@ class Volume_Dezigne_With_Paspartu(BaseException):
         self.calculate()
 
     def calculate(self):
-        self.rama = (self.width + 1,5 + self.paspartu_width * 2 + self.baget_width * 2) * 2 + (self.height + 1,5 + self.paspartu_width * 2 + self.baget_width * 2) * 2
+        self.rama = (self.width + 1.5 + self.paspartu_width * 2 + self.baget_width * 2) * 2 + (self.height + 1.5 + self.paspartu_width * 2 + self.baget_width * 2) * 2
         self.osnova = (self.width + 2) * (self.height + 2)
-        self.zadnik = (((self.width + 1,5) * self.baget_height) * 2 + ((self.height + 1,5) * self.baget_height) * 2) * 2 + ((self.width + 1,5 + self.paspartu_width * 2) * (self.height + 1,5 + self.paspartu_width * 2))
-        self.paspar_baget = ((self.width + 1,5) * self.baget_height) * 2 + ((self.height + 1,5) * self.baget_height) * 2
+        self.zadnik = (((self.width + 1.5) * self.baget_height) * 2 + ((self.height + 1.5) * self.baget_height) * 2) * 2 + ((self.width + 1.5 + self.paspartu_width * 2) * (self.height + 1.5 + self.paspartu_width * 2))
+        self.paspar_baget = ((self.width + 1.5) * self.baget_height) * 2 + ((self.height + 1.5) * self.baget_height) * 2
         self.paspartu_okno = ((self.width + 2) + self.paspartu_width * 2) * ((self.height + 2) + self.paspartu_width * 2)
         self.paspartu_osnova = ((self.width + 2) + self.paspartu_width * 2) * ((self.height + 2) + self.paspartu_width * 2)
         self.paspar_osnova_bokov = self.paspar_baget + self.paspartu_osnova
@@ -510,17 +510,17 @@ class Volume_Dezigne_With_Paspartu(BaseException):
 
     def get_data(self) -> dict:
         return {
-            "rama": self.rama,
-            "osnova": self.osnova,
-            "zadnik": self.zadnik,
-            "paspar_baget": self.paspar_baget,
-            "paspartu_okno": self.paspartu_okno,
-            "paspartu_osnova": self.paspartu_osnova,
-            "paspar_osnova_bokov": self.paspar_osnova_bokov,
-            "steklo": self.steklo,
-            "natazka": self.natazka,
-            "dvoynoe_paspartu": self.dvoynoe_paspartu,
-            "troynoe_pasprtu": self.troynoe_pasprtu,
-            "tros": self.tros,
-            "rabota": self.rabota,
+            "Рама": self.rama,
+            "Основа": self.osnova,
+            "Задник": self.zadnik,
+            "Паспар.д/багета": self.paspar_baget,
+            "паспарту окно": self.paspartu_okno,
+            "Паспарту основа": self.paspartu_osnova,
+            "Пасп основа+боков": self.paspar_osnova_bokov,
+            "Стекло": self.steklo,
+            "Натяжка": self.natazka,
+            "двойное паспарту": self.dvoynoe_paspartu,
+            "тройное паспарту": self.troynoe_pasprtu,
+            "Трос": self.tros,
+            "Работа по объемн.короб": self.rabota,
         }

@@ -201,7 +201,7 @@ async def create_product(prod: CreateProduct, token: str = None, user_id: str = 
         return {"status": 400}
     
     try:
-        product = crud.create_product(prod.title, prod.category, prod.price, shop)
+        product = crud.create_product(prod.title, prod.category, prod.price, prod.slug, prod.coef, shop)
         if product:
             return {"status": 200}
         else:

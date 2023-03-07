@@ -45,6 +45,7 @@ class Product(Document):
     category = StringField(required=True)
     price = FloatField(required=True)
     slug = StringField(required=True)
+    coef = FloatField(required=True)
     shop = ReferenceField(Shop, required=True)
     
     def json_convert(self):
@@ -54,6 +55,7 @@ class Product(Document):
             "category": self.category,
             "price": self.price,
             "slug": self.slug,
+            "coef": self.coef,
             "shop": self.shop.json_convert(),
         }
 

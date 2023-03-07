@@ -27,7 +27,7 @@
                         { title: 'Объемное оформление. Рамочка с паспарту', value: 9 },
                     ]"
                     :rules="[v => !(v==null) || 'Выберите один из пунктов']"
-                    label="Количество параметров"
+                    label="Шаблон"
                     required
                     variant="outlined"
                 ></v-select>
@@ -559,8 +559,9 @@
                     <h3>{{ item.title }} - {{ item.value }}</h3>
                     <v-autocomplete
                         v-model="item.product"
-                        :items="products"
-                        item-title="title"
+                        :items="productk[item.title]"
+                        item-title="txt"
+                        item-value="title"
                         label="Продукт"
                         :clearable="true"
                         @update:model-value="selectProduct(item)"
@@ -615,6 +616,8 @@
         data() {
             return {
                 shop: {},
+
+                productk: {},
 
                 template_id: null,
 
@@ -756,7 +759,7 @@
                         break;       
                     }
                 }
-                console.log(itms);
+                // console.log(itms);
                 for (var item in this.items) {
                     if (this.items[item].product == el.product) {
                         this.items[item].item = null;
@@ -833,7 +836,19 @@
                             }
                         })
                     });
+                    el.txt = `${el.title} - ${el.price}₽`
                 });
+
+                for (var ind in this.products){
+                    var prod = this.products[ind];
+
+                    if (prod.category in this.productk) {
+                        this.productk[prod.category].push(prod);
+                    } else {
+                        this.productk[prod.category] = [];
+                        this.productk[prod.category].push(prod);
+                    }
+                }
             });
 
             api.get_shop(this.$route.params.slug).then((r) => {

@@ -48,7 +48,7 @@
                             </v-btn>
                         </div>
                         
-                        <div v-for="product in products" :key="product.id">
+                        <!-- <div v-for="product in products" :key="product.id">
                             <v-card
                                 class="mx-auto"
                                 variant="outlined"
@@ -73,7 +73,75 @@
                                     </v-btn>
                                 </v-card-actions>
                             </v-card>
-                        </div>
+                        </div> -->
+
+                        <!-- <v-spacer></v-spacer>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="mdi-magnify"
+                            label="Search"
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                        <v-data-table
+                            :items="[{num: 1}, {num: 5}, {num: 6}]"
+                            
+                        ></v-data-table>
+
+
+                        {{ headers }}
+                        {{ products }} -->
+                        <br>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="mdi-magnify"
+                            label="Поиск..."
+                            single-line
+                            hide-details
+                        ></v-text-field>
+
+                        <br>
+
+                        <v-table density="compact">
+                            <thead>
+                            <tr>
+                                <th class="text-left">
+                                Название
+                                </th>
+                                <th class="text-left">
+                                Цена
+                                </th>
+                                <th class="text-left">
+                                Артикул
+                                </th>
+                                <th class="text-left">
+                                Категория
+                                </th>
+                                <th>
+                                -
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr
+                                v-for="product in products"
+                                :key="product.id" 
+                            >
+                                <td v-if="srch(product)">{{ product.title }}</td>
+                                <td v-if="srch(product)">{{ product.price }}</td>
+                                <td v-if="srch(product)">{{ product.slug }}</td>
+                                <td v-if="srch(product)">{{ product.category }}</td>
+                                <td v-if="srch(product)">
+                                    <v-btn
+                                    variant="plain"
+                                    density="compact"
+                                    icon="mdi-export"
+                                    @click="$router.push({name: 'Product', params: {'slug': product.slug }})">
+                                    </v-btn>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </v-table>
 
                     </v-window-item>
 
@@ -200,14 +268,29 @@
                 v-model="np_title"
                 required
                 ></v-text-field>
-                <v-text-field
+                <v-select
                 label="Категория"
+                :items="categories"
                 v-model="np_category"
+                required
+                ></v-select>
+                <v-text-field
+                label="Артикул"
+                v-model="np_slug"
                 required
                 ></v-text-field>
                 <v-text-field
                 label="Цена"
                 v-model="np_price"
+                required
+                type="number"
+                min="0.01"
+                default=""
+                step="0.01"
+                ></v-text-field>
+                <v-text-field
+                label="Коэффициент"
+                v-model="np_coef"
                 required
                 type="number"
                 min="0.01"
@@ -474,6 +557,26 @@
                 newOrderDialog: false,
                 editOrderDialog: false,
 
+
+                search: '',
+                headers: [
+                    {
+                        align: 'start',
+                        key: 'title',
+                        title: 'Название',
+                    },
+                    {
+                        key: 'price',
+                        title: 'Цена',
+                    },
+                    {
+                        key: 'category',
+                        title: 'Категория',
+                    },
+                ],
+
+                categories: [],
+
                 shop: {},
                 products: [],
                 templates: [],
@@ -482,8 +585,10 @@
                 activeTab: 1,
                 
                 np_title: "",
-                np_category: "",
+                np_category: null,
                 np_price: null,
+                np_coef: null,
+                np_slug: null,
 
                 nt_title: null,
                 nt_products: [],
@@ -505,13 +610,21 @@
         },
 
         methods: {
+            srch(prod) {
+                if (prod.title.includes(this.search) || prod.category.includes(this.search) || this.search == '') {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
             log_out() {
                 control.log_out();
                 this.$router.push({name: 'Login'});
             },
 
             create_product() {
-                api.create_product(this.np_title, this.np_category, this.np_price, this.shop.id).then((r) => {
+                api.create_product(this.np_title, this.np_category, this.np_price, this.np_coef, this.np_slug, this.shop.id).then((r) => {
                     api.get_shops_products(this.shop.slug).then((response) => {
                         this.products = response.data.products;
                         this.products.forEach(element => this.add_product_to_list(element));
@@ -701,6 +814,33 @@
             if (!control.check_auth()){
                 this.$router.push({name: 'Login'});
             }
+
+            this.categories = [
+                'Двойное',
+                'Задник',
+                'Кант',
+                'Натяжка',
+                'Общдее паспар.',
+                'Основа',
+                'Пасп основа+боков',
+                'Паспар.д/багета',
+                'Паспар.основа',
+                'Паспарту',
+                'Паспарту основа',
+                'Подрамник',
+                'Подрамник 60',
+                'Приклейка работы к паспарту',
+                'Работа по объемн.короб',
+                'Рама',
+                'Рама 1',
+                'Рама 2',
+                'Стекло',
+                'Тройное',
+                'Трос',
+                'двойное паспарту',
+                'паспарту окно',
+                'тройное паспарту',
+            ]
 
             api.get_shop(this.$route.params.slug).then((response) => {
                 this.shop = response.data.shop;

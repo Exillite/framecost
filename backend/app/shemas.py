@@ -34,6 +34,8 @@ class CreateProduct(BaseModel):
     title: str
     category: str
     price: float
+    slug: str
+    coef: float
     shop_id: str
 
 class UpdateProduct(BaseModel):
