@@ -95,12 +95,13 @@ def get_product_by_id(id: str) -> Product:
 def get_products_by_shop(shop: Shop) -> list:
     return list(Product.objects(shop=shop))
 
-def update_product(title: str, category: str, price: float, slug: str) -> Product:
+def update_product(title: str, category: str, price: float, slug: str, coef: float) -> Product:
     product = Product.objects(slug=slug).first()
     if product:
         product.title = title
         product.category = category
         product.price = price
+        product.coef = coef
         product.save()
         return product
     else:

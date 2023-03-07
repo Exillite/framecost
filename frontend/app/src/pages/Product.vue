@@ -95,17 +95,27 @@
                                 variant="outlined"
                             ></v-text-field>
 
-                            <v-text-field
+                            <v-select
                                 label="Категория"
+                                :items="categories"
                                 v-model="ep_category"
                                 required
-                                default=""
-                                variant="outlined"
-                            ></v-text-field>
+                            ></v-select>
 
                             <v-text-field
                                 label="Цена"
                                 v-model="ep_price"
+                                required
+                                type="number"
+                                min="0.01"
+                                default=""
+                                step="0.01"
+                                variant="outlined"
+                            ></v-text-field>
+
+                            <v-text-field
+                                label="Коэффициент"
+                                v-model="ep_coef"
                                 required
                                 type="number"
                                 min="0.01"
@@ -303,9 +313,12 @@
                 product: {},
                 items: [],
 
+                categories: [],
+
                 ep_title: null,
                 ep_category: null,
                 ep_price: null,
+                ep_coef: null,
 
                 activeTab: 1,
 
@@ -415,7 +428,7 @@
             },
 
             edit_product() {
-                api.update_product(this.product.slug, this.ep_title, this.ep_category, this.ep_price);
+                api.update_product(this.product.slug, this.ep_title, this.ep_category, this.ep_price, this.ep_coef);
             },
 
             delete_product() {
@@ -441,8 +454,37 @@
                 this.ep_title = this.product.title;
                 this.ep_category = this.product.category;
                 this.ep_price = this.product.price;
+                this.ep_coef = this.product.coef;
                 
             });
+
+
+            this.categories = [
+                'Двойное',
+                'Задник',
+                'Кант',
+                'Натяжка',
+                'Общдее паспар.',
+                'Основа',
+                'Пасп основа+боков',
+                'Паспар.д/багета',
+                'Паспар.основа',
+                'Паспарту',
+                'Паспарту основа',
+                'Подрамник',
+                'Подрамник 60',
+                'Приклейка работы к паспарту',
+                'Работа по объемн.короб',
+                'Рама',
+                'Рама 1',
+                'Рама 2',
+                'Стекло',
+                'Тройное',
+                'Трос',
+                'двойное паспарту',
+                'паспарту окно',
+                'тройное паспарту',
+            ];
         },
     }
 </script>

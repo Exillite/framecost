@@ -113,11 +113,12 @@ export default {
         });
     },
 
-    async update_product(product_slug, title, category, price) {
+    async update_product(product_slug, title, category, price, coef) {
         return Axios.put(api_url + `/product/${product_slug}`, {
             title: title,
             category: category,
             price: price,
+            coef: coef,
         }, {
             params: {
                 token: cookie.getCookie('token'),

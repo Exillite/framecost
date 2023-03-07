@@ -282,7 +282,7 @@ async def update_product(edit_prd: UpdateProduct, product_slug: str, token: str 
         return {"status": 400}
 
     try:
-        updd_prd = crud.update_product(edit_prd.title, edit_prd.category, edit_prd.price, product_slug)
+        updd_prd = crud.update_product(edit_prd.title, edit_prd.category, edit_prd.price, product_slug, edit_prd.coef)
         if updd_prd:
             return {"status": 200}
         else:

@@ -98,6 +98,7 @@
                             label="Поиск..."
                             single-line
                             hide-details
+                            clearable
                         ></v-text-field>
 
                         <br>
@@ -611,7 +612,7 @@
 
         methods: {
             srch(prod) {
-                if (prod.title.includes(this.search) || prod.category.includes(this.search) || this.search == '') {
+                if (prod.title.includes(this.search) || prod.category.includes(this.search) || prod.slug.includes(this.search) || this.search == '') {
                     return true;
                 } else {
                     return false;
@@ -840,7 +841,7 @@
                 'двойное паспарту',
                 'паспарту окно',
                 'тройное паспарту',
-            ]
+            ];
 
             api.get_shop(this.$route.params.slug).then((response) => {
                 this.shop = response.data.shop;

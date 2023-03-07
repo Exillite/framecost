@@ -42,6 +42,7 @@ class UpdateProduct(BaseModel):
     title: str
     category: str
     price: float
+    coef: float
 
 
 class CreateItem(BaseModel):
